@@ -1,0 +1,88 @@
+.Login {
+    text-align: center;
+  }
+  
+  .Login-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .Login-logo {
+      animation: Login-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .Login-header {
+    background-image: url("../img/background.png");
+    background-color: #282c34;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Login-link {
+    color: #61dafb;
+  }
+  
+  .rentfyLogo{
+    width: 12%;
+    height: auto;
+  }
+  
+  .welcome {
+    color: black;
+  }
+  
+  .btnEntrar {
+    font-size:18px;
+    font-family:Arial;
+    width:140px;
+    height:50px;
+    border-width:1px;
+    color:#fff;
+    border-color:#18ab29;
+    font-weight:bold;
+    border-top-left-radius:28px;
+    border-top-right-radius:28px;
+    border-bottom-left-radius:28px;
+    border-bottom-right-radius:28px;
+    text-shadow: 1px 1px 0px hsl(112, 45%, 28%);
+    background:rgba(28, 179, 69, 1);
+    margin-right: 20px;
+  }
+  
+  .btnEntrar:hover {
+    background: rgba(86, 255, 0, 1)
+  }
+  
+  .btnCadastrar {
+    font-size:18px;
+    font-family:Arial;
+    width:140px;
+    height:50px;
+    border-width:1px;
+    color:#fff;
+    border-color:rgba(5, 84, 158, 1);
+    font-weight:bold;
+    border-top-left-radius:28px;
+    border-top-right-radius:28px;
+    border-bottom-left-radius:28px;
+    border-bottom-right-radius:28px;
+    text-shadow: 1px 1px 0px #110754;
+    background:rgba(82, 124, 189, 1);
+  }
+  
+  .btnCadastrar:hover {
+    background: rgba(76, 189, 214, 1)
+  }
+
+  
