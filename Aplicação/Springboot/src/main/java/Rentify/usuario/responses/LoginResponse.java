@@ -1,6 +1,6 @@
-package br.pucpr.exemplo.usuario.responses;
+package rentify.usuario.responses;
 
-import br.pucpr.exemplo.usuario.entity.Usuario;
+import rentify.usuario.entity.Usuario;
 import lombok.Data;
 import lombok.NonNull;
 

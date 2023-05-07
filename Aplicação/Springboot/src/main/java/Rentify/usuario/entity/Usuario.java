@@ -1,31 +1,37 @@
-package br.pucpr.exemplo.usuario.entity;
+package rentify.usuario.entity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "usuario")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
-    @Column(name = "CPF")
-    private String cpf;
+    @Column(name = "id_usuario")
+    private Integer id;
 
     @NotNull
     @Column(unique = true, nullable = false)
-    private String login;
+    private String usuario;
 
     @NotNull
     @Column(unique = true, nullable = false)
@@ -33,23 +39,18 @@ public class Usuario {
 
     @JsonIgnore
     @NotNull
+    @Column(nullable = false)
     private String senha;
 
-    @Column(name = "NOME")
+    @NotNull
+    @Column
     private String nome;
 
-    @Column(name = "TELEFONE")
-    private String telefone;
 
-    @Column(name = "IDADE")
-    @Min(18)
-    @Max(99)
-    private Integer idade = 0;
-
-    @NotNull
-    @ElementCollection
-    @CollectionTable(name = "ROLES", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "ROLE")
-    @ToString.Exclude
-    private Set<String> roles = new HashSet<>();
+//    @NotNull
+//    @ElementCollection
+//    @CollectionTable(name = "ROLES", joinColumns = @JoinColumn(name = "id"))
+//    @Column(name = "ROLE")
+//    @ToString.Exclude
+//    private Set<String> roles = new HashSet<>();
 }

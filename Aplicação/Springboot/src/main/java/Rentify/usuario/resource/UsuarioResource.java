@@ -1,18 +1,23 @@
-package br.pucpr.exemplo.usuario.resource;
+package rentify.usuario.resource;
 
-import br.pucpr.exemplo.usuario.entity.Usuario;
-import br.pucpr.exemplo.usuario.requests.LoginRequest;
-import br.pucpr.exemplo.usuario.requests.UsuarioRequest;
-import br.pucpr.exemplo.usuario.responses.LoginResponse;
-import br.pucpr.exemplo.usuario.service.UsuarioService;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import rentify.usuario.entity.Usuario;
+import rentify.usuario.requests.LocatarioRequest;
+import rentify.usuario.requests.LoginRequest;
+import rentify.usuario.responses.LoginResponse;
+import rentify.usuario.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
@@ -29,8 +34,8 @@ public class UsuarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> salvar(@Valid @RequestBody UsuarioRequest usuario) {
-        var dto = usuarioService.salvar(usuario);
+    public ResponseEntity<Usuario> salvar(@Valid @RequestBody LocatarioRequest locatario) {
+        var dto = usuarioService.salvar(locatario);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
