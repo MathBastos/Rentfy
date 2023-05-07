@@ -1,21 +1,25 @@
-package br.pucpr.exemplo.usuario.service;
-
-import br.pucpr.exemplo.security.JWT;
-import br.pucpr.exemplo.usuario.entity.Usuario;
-import br.pucpr.exemplo.usuario.repository.UsuarioRepository;
-import br.pucpr.exemplo.usuario.requests.LoginRequest;
-import br.pucpr.exemplo.usuario.requests.UsuarioRequest;
-import br.pucpr.exemplo.usuario.responses.LoginResponse;
-import jakarta.annotation.security.RolesAllowed;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+package rentify.usuario.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import jakarta.annotation.security.RolesAllowed;
+import lombok.AllArgsConstructor;
+import rentify.locatario.entity.Locatario;
+import rentify.locatario.repository.LocatarioRepository;
+import rentify.security.JWT;
+import rentify.usuario.entity.Usuario;
+import rentify.usuario.repository.UsuarioRepository;
+import rentify.usuario.requests.LocatarioRequest;
+import rentify.usuario.requests.LoginRequest;
+import rentify.usuario.responses.LoginResponse;
 
 @Service
 @AllArgsConstructor
 public class UsuarioService {
     private UsuarioRepository usuarioRepository;
+    private LocatarioRepository locatarioRepository;
     private JWT jwt;
 
     public LoginResponse login(LoginRequest credenciais) {
@@ -27,14 +31,26 @@ public class UsuarioService {
         return new LoginResponse(token, usuario);
     }
 
-    public Usuario salvar(UsuarioRequest request) {
+    public Usuario salvar(LocatarioRequest request) {
         var usuario = new Usuario();
         usuario.setLogin(request.getLogin());
         usuario.setSenha(request.getSenha());
         usuario.setNome(request.getNome());
-        usuario.setIdade(request.getIdade());
-        usuario.getRoles().add("LOCATARIO");
-        return usuarioRepository.save(usuario);
+        usuario.setEmail(request.getEmail());
+        //usuario.getRoles().add("LOCATARIO");
+        
+        usuario = usuarioRepository.save(usuario);
+        
+        var locatario = new Locatario();
+        locatario.setCpf(request.getCpf());
+        locatario.setCelular(request.getCelular());
+        locatario.setDataNascimento(request.getDataNascimento());
+        locatario.setUsuario(usuario);
+        
+        locatarioRepository.save(locatario);
+        
+//        return usuarioRepository.save(usuario);
+        return usuario;
     }
 
     @RolesAllowed("USUARIO")

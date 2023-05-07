@@ -1,4 +1,4 @@
-package br.pucpr.exemplo.usuario.requests;
+package rentify.usuario.requests;
 
 public class LoginRequest {
     private String login;
