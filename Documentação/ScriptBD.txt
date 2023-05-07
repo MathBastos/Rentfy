@@ -1,0 +1,221 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 07-Maio-2023 às 21:07
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 8.1.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Banco de dados: `rentify`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `especificacoes`
+--
+
+CREATE TABLE `especificacoes` (
+  `id_especificacoes` int(11) NOT NULL,
+  `tipo` varchar(30) NOT NULL,
+  `quartos` int(11) NOT NULL,
+  `banheiros` int(11) NOT NULL,
+  `salas` int(11) NOT NULL,
+  `suites` int(11) DEFAULT NULL,
+  `garagem` int(11) DEFAULT NULL,
+  `tamanho` int(11) NOT NULL,
+  `descricao` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `especificacoes_locadora`
+--
+
+CREATE TABLE `especificacoes_locadora` (
+  `id_espec_loc` int(11) NOT NULL,
+  `id_locadora` int(11) NOT NULL,
+  `id_especificacoes` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `imovel`
+--
+
+CREATE TABLE `imovel` (
+  `id_imovel` int(11) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `cidade` varchar(30) NOT NULL,
+  `bairro` varchar(30) NOT NULL,
+  `cep` varchar(20) NOT NULL,
+  `rua` varchar(50) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `complemento` varchar(50) DEFAULT NULL,
+  `preco_dia` double NOT NULL,
+  `id_locadora` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `locadora`
+--
+
+CREATE TABLE `locadora` (
+  `id_locadora` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `cnpj` varchar(40) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `locatario`
+--
+
+CREATE TABLE `locatario` (
+  `id_locatario` int(11) NOT NULL,
+  `cpf` varchar(20) NOT NULL,
+  `celular` varchar(20) NOT NULL,
+  `data_nascimento` date NOT NULL,
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `usuario` varchar(30) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `senha` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `especificacoes`
+--
+ALTER TABLE `especificacoes`
+  ADD PRIMARY KEY (`id_especificacoes`);
+
+--
+-- Índices para tabela `especificacoes_locadora`
+--
+ALTER TABLE `especificacoes_locadora`
+  ADD PRIMARY KEY (`id_espec_loc`),
+  ADD KEY `fk_espec_loc` (`id_especificacoes`),
+  ADD KEY `fk_loc_espec` (`id_locadora`);
+
+--
+-- Índices para tabela `imovel`
+--
+ALTER TABLE `imovel`
+  ADD PRIMARY KEY (`id_imovel`),
+  ADD KEY `fk_locadora_imovel` (`id_locadora`);
+
+--
+-- Índices para tabela `locadora`
+--
+ALTER TABLE `locadora`
+  ADD PRIMARY KEY (`id_locadora`),
+  ADD KEY `fk_locadora` (`id_usuario`);
+
+--
+-- Índices para tabela `locatario`
+--
+ALTER TABLE `locatario`
+  ADD PRIMARY KEY (`id_locatario`),
+  ADD KEY `fk_usuario` (`id_usuario`);
+
+--
+-- Índices para tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `especificacoes`
+--
+ALTER TABLE `especificacoes`
+  MODIFY `id_especificacoes` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `especificacoes_locadora`
+--
+ALTER TABLE `especificacoes_locadora`
+  MODIFY `id_espec_loc` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `imovel`
+--
+ALTER TABLE `imovel`
+  MODIFY `id_imovel` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `locadora`
+--
+ALTER TABLE `locadora`
+  MODIFY `id_locadora` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `locatario`
+--
+ALTER TABLE `locatario`
+  MODIFY `id_locatario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `especificacoes_locadora`
+--
+ALTER TABLE `especificacoes_locadora`
+  ADD CONSTRAINT `fk_espec_loc` FOREIGN KEY (`id_especificacoes`) REFERENCES `especificacoes` (`id_especificacoes`),
+  ADD CONSTRAINT `fk_loc_espec` FOREIGN KEY (`id_locadora`) REFERENCES `locadora` (`id_locadora`);
+
+--
+-- Limitadores para a tabela `imovel`
+--
+ALTER TABLE `imovel`
+  ADD CONSTRAINT `fk_locadora_imovel` FOREIGN KEY (`id_locadora`) REFERENCES `locadora` (`id_locadora`);
+
+--
+-- Limitadores para a tabela `locadora`
+--
+ALTER TABLE `locadora`
+  ADD CONSTRAINT `fk_locadora` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+
+--
+-- Limitadores para a tabela `locatario`
+--
+ALTER TABLE `locatario`
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+COMMIT;
