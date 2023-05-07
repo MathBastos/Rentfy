@@ -7,7 +7,11 @@ function Start() {
     const navigate = useNavigate();
 
     const entrarClick = () => {
-      navigate('/component/Login.js');
+      window.location.href = '/component/Login.js'
+    };
+
+    const cadastrarClick = () => {
+      window.location.href = '/component/Cadastro.js'
     };
 
     return (
@@ -23,7 +27,7 @@ function Start() {
   
           <div>
             <button onClick={entrarClick} className="btnEntrar">Entrar</button>
-            <button className="btnCadastrar">Cadastrar</button>
+            <button onClick={cadastrarClick} className="btnCadastrar">Cadastrar</button>
           </div>
         </header>
       </div>

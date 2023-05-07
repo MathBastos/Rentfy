@@ -33,7 +33,7 @@
     color: #61dafb;
   }
   
-  .rentfyLogo{
+  .rentfyLogoLogin{
     width: 35%;
     height: auto;
   }
@@ -85,10 +85,10 @@
     background: rgba(76, 189, 214, 1)
   }
 
-  form{
+  .loginForm{
     height: 520px;
     width: 400px;
-    background-color: rgba(100, 100, 100, 0.13);
+    background-color: rgba(100, 100, 100, 0.5);
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
@@ -96,7 +96,7 @@
     border-radius: 10px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    /*box-shadow: 0 0 40px rgba(8,7,16,0.6);*/
     padding: 50px 35px;
 }
 form *{
@@ -120,7 +120,7 @@ label{
     font-size: 16px;
     font-weight: 500;
 }
-input{
+.inputLogin{
     display: block;
     height: 50px;
     width: 100%;
