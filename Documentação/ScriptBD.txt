@@ -86,6 +86,7 @@ CREATE TABLE `locadora` (
 
 CREATE TABLE `locatario` (
   `id_locatario` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
   `cpf` varchar(20) NOT NULL,
   `celular` varchar(20) NOT NULL,
   `data_nascimento` date NOT NULL,
