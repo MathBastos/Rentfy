@@ -17,17 +17,18 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public LoginResponse login(LoginRequest credenciais) {
-//        var usuario = usuarioRepository.findByLogin(credenciais.getLogin());
-//        if (usuario == null) return null;
-//        if (!usuario.getSenha().equals(credenciais.getSenha())) return null;
-//
-//        return new LoginResponse(usuario);
-        return null;
+
+        var usuario = usuarioRepository.findByLogin(credenciais.getLogin());
+        if (usuario == null) return null;
+        if (!usuario.getSenha().equals(credenciais.getSenha())) return null;
+
+        return new LoginResponse(usuario);
     }
 
     public Usuario salvar(UsuarioRequest request) {
         var usuario = new Usuario();
-        usuario.setUsuario(request.getLogin());
+      
+        usuario.setLogin(request.getLogin());
         usuario.setSenha(request.getSenha());
         usuario.setEmail(request.getEmail());
 

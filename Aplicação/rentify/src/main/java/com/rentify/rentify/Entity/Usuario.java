@@ -21,7 +21,7 @@ public class Usuario {
 
     @NotNull
     @Column(unique = true, nullable = false)
-    private String usuario;
+    private String login;
 
     @NotNull
     @Column(unique = true, nullable = false)
