@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Start from './component/Start';
 import Login from './component/Login';
+import Main from './component/Main';
 import Cadastro from './component/Cadastro';
+import CadastroImovel from './component/CadastroImovel';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Redirect} from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
@@ -16,6 +18,8 @@ root.render(
         <Route path="/" element={<Start />} />
         <Route path="/component/Login.js" element={<Login />} />
         <Route path="/component/Cadastro.js" element={<Cadastro />} />
+        <Route path="/component/CadastroImovel.js" element={<CadastroImovel />} />
+        <Route path="/component/Main.js" element={<Main />} />
       </Routes>
     </Router>
   </React.StrictMode>

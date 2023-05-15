@@ -38,49 +38,6 @@
   .welcome {
     color: black;
   }
-  
-  .btnEntrar {
-    font-size:18px;
-    font-family:Arial;
-    width:140px;
-    height:50px;
-    border-width:1px;
-    color:#fff;
-    border-color:#18ab29;
-    font-weight:bold;
-    border-top-left-radius:28px;
-    border-top-right-radius:28px;
-    border-bottom-left-radius:28px;
-    border-bottom-right-radius:28px;
-    text-shadow: 1px 1px 0px hsl(112, 45%, 28%);
-    background:rgba(28, 179, 69, 1);
-    margin-right: 20px;
-  }
-  
-  .btnEntrar:hover {
-    background: rgba(86, 255, 0, 1)
-  }
-  
-  .btnCadastrar {
-    font-size:18px;
-    font-family:Arial;
-    width:140px;
-    height:50px;
-    border-width:1px;
-    color:#fff;
-    border-color:rgba(5, 84, 158, 1);
-    font-weight:bold;
-    border-top-left-radius:28px;
-    border-top-right-radius:28px;
-    border-bottom-left-radius:28px;
-    border-bottom-right-radius:28px;
-    text-shadow: 1px 1px 0px #110754;
-    background:rgba(82, 124, 189, 1);
-  }
-  
-  .btnCadastrar:hover {
-    background: rgba(76, 189, 214, 1)
-  }
 
   .CadastroForm{
     height: 730px;
@@ -111,7 +68,7 @@ form h3{
     text-align: center;
 }
 
-label{
+.labelCadastro{
     display: block;
     margin-top: 30px;
     font-size: 16px;

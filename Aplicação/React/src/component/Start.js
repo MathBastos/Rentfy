@@ -7,11 +7,11 @@ function Start() {
     const navigate = useNavigate();
 
     const entrarClick = () => {
-      window.location.href = '/component/Login.js'
+      navigate('/component/Login.js');
     };
 
     const cadastrarClick = () => {
-      window.location.href = '/component/Cadastro.js'
+      navigate('/component/Cadastro.js');
     };
 
     return (
