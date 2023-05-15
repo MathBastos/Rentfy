@@ -1,13 +1,13 @@
-package br.pucpr.exemplo;
+package com.rentify.rentify;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExemploApplicationTests {
+class RentifyApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }

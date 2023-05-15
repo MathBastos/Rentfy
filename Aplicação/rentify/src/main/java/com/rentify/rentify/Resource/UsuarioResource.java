@@ -1,25 +1,31 @@
-package br.pucpr.exemplo.usuario.resource;
+package com.rentify.rentify.Resource;
 
-import br.pucpr.exemplo.usuario.entity.Usuario;
-import br.pucpr.exemplo.usuario.requests.LoginRequest;
-import br.pucpr.exemplo.usuario.requests.UsuarioRequest;
-import br.pucpr.exemplo.usuario.responses.LoginResponse;
-import br.pucpr.exemplo.usuario.service.UsuarioService;
-import jakarta.annotation.security.RolesAllowed;
+import com.rentify.rentify.Entity.Usuario;
+import com.rentify.rentify.Request.LoginRequest;
+import com.rentify.rentify.Request.UsuarioRequest;
+import com.rentify.rentify.Response.LoginResponse;
+import com.rentify.rentify.Service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/usuario")
-@AllArgsConstructor
+//@AllArgsConstructor
+@EnableAutoConfiguration
 public class UsuarioResource {
     private UsuarioService usuarioService;
 
+    @Autowired
+    public UsuarioResource(UsuarioService usuarioService){
+        this.usuarioService = usuarioService;
+    }
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest credenciais) {
         var login = usuarioService.login(credenciais);
@@ -28,16 +34,17 @@ public class UsuarioResource {
                 ResponseEntity.ok(login);
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> salvar(@Valid @RequestBody UsuarioRequest usuario) {
         var dto = usuarioService.salvar(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @GetMapping
-    @RolesAllowed("USUARIO")
     public List<Usuario> listar() {
         return usuarioService.listar();
     }
 
 }
+
+
