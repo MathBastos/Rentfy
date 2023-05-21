@@ -9,6 +9,14 @@ function Main() {
     const cadImoClick = () => {
       navigate('/component/CadastroImovel.js');
     };
+
+    const visuImoClick = () => {
+        navigate('/component/GerenciarImovel.js');
+      };
+
+    const buscarImoClick = () => {
+        navigate('/component/BuscarImovel.js');
+    };
     
     return (
         
@@ -27,7 +35,7 @@ function Main() {
                 </tr>
                 <tr>
                     <td>
-                        <button className="btnBuscarImovel">Buscar Imóvel</button>
+                        <button className="btnBuscarImovel" onClick={buscarImoClick}>Buscar Imóvel</button>
                     </td>
                 </tr>
                 <tr>
@@ -37,7 +45,7 @@ function Main() {
                 </tr>
                 <tr>
                     <td>
-                        <button className="btnGerenciarImovel">Gerenciar Imóvel</button>
+                        <button className="btnGerenciarImovel" onClick={visuImoClick}>Gerenciar Imóvel</button>
                     </td>
                 </tr>
             </table>

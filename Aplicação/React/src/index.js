@@ -6,6 +6,9 @@ import Login from './component/Login';
 import Main from './component/Main';
 import Cadastro from './component/Cadastro';
 import CadastroImovel from './component/CadastroImovel';
+import GerenciarImovel from './component/GerenciarImovel';
+import BuscarImovel from './component/BuscarImovel';
+import VisualizarImovel from './component/VisualizarImovel';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Redirect} from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
@@ -19,6 +22,9 @@ root.render(
         <Route path="/component/Login.js" element={<Login />} />
         <Route path="/component/Cadastro.js" element={<Cadastro />} />
         <Route path="/component/CadastroImovel.js" element={<CadastroImovel />} />
+        <Route path="/component/GerenciarImovel.js" element={<GerenciarImovel />} />
+        <Route path="/component/BuscarImovel.js" element={<BuscarImovel />} />
+        <Route path="/component/VisualizarImovel.js" element={<VisualizarImovel />} />
         <Route path="/component/Main.js" element={<Main />} />
       </Routes>
     </Router>
