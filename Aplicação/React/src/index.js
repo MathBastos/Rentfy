@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Start from './component/Start';
 import Login from './component/Login';
-import Main from './component/Main';
+import MainLocador from './component/MainLocador';
+import MainLocatario from './component/MainLocatario';
 import Cadastro from './component/Cadastro';
 import CadastroImovel from './component/CadastroImovel';
 import GerenciarImovel from './component/GerenciarImovel';
 import BuscarImovel from './component/BuscarImovel';
 import VisualizarImovel from './component/VisualizarImovel';
+import ConsultaImovel from './component/ConsultaImovel';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Redirect} from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
@@ -25,7 +27,9 @@ root.render(
         <Route path="/component/GerenciarImovel.js" element={<GerenciarImovel />} />
         <Route path="/component/BuscarImovel.js" element={<BuscarImovel />} />
         <Route path="/component/VisualizarImovel.js" element={<VisualizarImovel />} />
-        <Route path="/component/Main.js" element={<Main />} />
+        <Route path="/component/MainLocador.js" element={<MainLocador />} />
+        <Route path="/component/MainLocatario.js" element={<MainLocatario />} />
+        <Route path="/component/ConsultaImovel.js" element={<ConsultaImovel />} />
       </Routes>
     </Router>
   </React.StrictMode>

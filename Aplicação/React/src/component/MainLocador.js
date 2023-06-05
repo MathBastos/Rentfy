@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Main.css';
+import '../css/MainLocador.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,7 @@ function Main() {
                 </tr>
                 <tr>
                     <td>
+                        <h3>Bem-vindo Locador!</h3>
                         <h3>Escolha o que deseja fazer:</h3>
                     </td>
                 </tr>

@@ -212,7 +212,7 @@ function BuscarImovel() {
                       </tbody>
                     </table>
                     <br />
-                    <button className="btnCadastrarImovel" onClick={verImoClick}>Atualizar Imóvel</button>
+                    <button className="btnCadastrarImovel" onClick={verImoClick}>Visualizar Imóvel</button>
                   </>
                 )}
               </td>
