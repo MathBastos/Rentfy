@@ -102,3 +102,11 @@ button{
 button:hover {
     background: rgb(133, 235, 82)
   }
+  .radioContainer {
+    display: flex;
+    align-items: center;
+}
+
+.radioFont{
+  font-size: 16px;
+}
