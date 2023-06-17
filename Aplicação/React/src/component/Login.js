@@ -9,15 +9,15 @@ function Login() {
   const [selectedRow, setSelectedRow] = useState(null);
 
   const [selectedButton, setSelectedButton] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [usuario, setUsername] = useState('');
+  const [senha, setPassword] = useState('');
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
   };
 
   const handleLogin = () => {
-    if (username === 'admin' && password === 'admin') {
+    if (usuario === 'admin' && senha === 'admin') {
       // Redirecionar para a página do administrador
       navigate('/component/Admin.js');
     } else {
@@ -62,22 +62,22 @@ function Login() {
                   </div>
                   <form id="Login">
                     <div>
-                      <label htmlFor="username">Username:</label><br />
+                      <label htmlFor="usuario">usuario:</label><br />
                       <input
                         className="rounded-input"
                         type="text"
-                        id="username"
-                        value={username}
+                        id="usuario"
+                        value={usuario}
                         onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                     <div>
-                      <label htmlFor="password">Password:</label><br />
+                      <label htmlFor="senha">senha:</label><br />
                       <input
                         className="rounded-input"
-                        type="password"
-                        id="password"
-                        value={password}
+                        type="senha"
+                        id="senha"
+                        value={senha}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
