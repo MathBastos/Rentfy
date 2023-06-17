@@ -1,107 +1,161 @@
 .Login {
-    text-align: center;
-  }
-  
+  text-align: center;
+}
+
+.Login-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
   .Login-logo {
-    height: 40vmin;
-    pointer-events: none;
+    animation: Login-logo-spin infinite 20s linear;
   }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .Login-logo {
-      animation: Login-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .Login-header {
-    background-image: url("../img/background.png");
-    background-color: #282c34;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .Login-link {
-    color: #61dafb;
-  }
-  
-  .rentfyLogoLogin{
-    width: 35%;
-    height: auto;
-  }
-  
-  .welcome {
-    color: black;
-  }
-
-  .loginForm{
-    height: 520px;
-    width: 400px;
-    background-color: rgba(100, 100, 100, 0.5);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    /*box-shadow: 0 0 40px rgba(8,7,16,0.6);*/
-    padding: 50px 35px;
-}
-form *{
-    font-family: 'Poppins',sans-serif;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
-    text-shadow: 2px 1px 0px rgba(0, 0, 0, 0.5);
-}
-form h3{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
-    text-align: center;
 }
 
-.labelLogin{
-    display: block;
-    margin-top: 30px;
-    font-size: 16px;
-    font-weight: 500;
+.Login-header {
+  background-image: url("../img/background.png");
+  background-color: #282c34;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
 }
-.inputLogin{
-    display: block;
-    height: 50px;
-    width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    padding: 0 10px;
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 300;
+
+.Login-link {
+  color: #61dafb;
 }
-::placeholder{
-    color: #e5e5e5;
+
+.rentfyLogoLogin{
+  width: 35%;
+  height: auto;
 }
-button{
-    margin-top: 50px;
-    width: 100%;
-    background-color: #9cd99c;
-    color: white;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
+
+.labelCadImo{
+  font-size: 16px;
+  font-weight: 500;
 }
-button:hover {
-    background: rgb(133, 235, 82)
-  }
+
+.numCadImo{
+  width: 50px;
+}
+
+.compCadImo{
+  width: 100px;
+}
+
+.cadImoLegendFieldInfo{
+  font-size: 20px;
+}
+
+.textAreaSize{
+  resize: none;
+}
+
+.inputCadImo[type="file"] {
+  display: none;
+}
+
+.labelEnvioCadImo {
+  padding: 20px 10px;
+  width: 150px;
+  background-color: #333;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.locationImg{
+  width: 100%;
+  height: auto;
+}
+
+.btnLogin{
+  font-size:15px;
+  font-family:Arial;
+  width:140px;
+  height:50px;
+  border-width:1px;
+  color:rgba(255, 255, 255, 1);
+  border-color:rgba(16, 129, 16, 1);
+  font-weight:bold;
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  border-bottom-left-radius:28px;
+  border-bottom-right-radius:28px;
+  text-shadow: 1px 1px 0px rgba(7, 72, 23, 1);
+  background:rgba(46, 248, 110, 1);  
+  margin-top: 15px; 
+}
+
+.btnLogin:hover{
+  background: rgba(102, 192, 117, 1)
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered thead th {
+  border-bottom-width: 2px;
+  border-top: 1px solid #dee2e6; /* Adiciona uma linha no topo do cabeçalho */
+}
+
+#imoveis-localizados {
+  border: 1px solid #000000; /* Adiciona uma linha no exterior da tabela */
+}
+
+.rounded-input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border: 1px solid black;
+  padding: 8px;
+  width: 70%;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.fieldset-custom {
+  background-color: rgba(139, 138, 138, 0.364);
+}
+
+.btnTipo{
+  font-size:15px;
+  font-family:Arial;
+  width:140px;
+  height:50px;
+  border-width:1px;
+  font-weight:bold;
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  border-bottom-left-radius:28px;
+  border-bottom-right-radius:28px;
+
+}

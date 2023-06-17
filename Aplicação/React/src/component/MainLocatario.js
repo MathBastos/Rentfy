@@ -30,7 +30,7 @@ function Main() {
                 </tr>
                 <tr>
                     <td>
-                        <h3>Bem-vindo Locador!</h3>
+                        <h3>Bem-vindo Locatário!</h3>
                         <h3>Escolha o que deseja fazer:</h3>
                     </td>
                 </tr>

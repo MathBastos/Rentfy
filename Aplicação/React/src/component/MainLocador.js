@@ -46,7 +46,7 @@ function Main() {
                 </tr>
                 <tr>
                     <td>
-                        <button className="btnGerenciarImovel" onClick={visuImoClick}>Gerenciar Imóvel</button>
+                        <button className="btnGerenciarImovelLoc" onClick={visuImoClick}>Gerenciar Imóvel</button>
                     </td>
                 </tr>
             </table>
