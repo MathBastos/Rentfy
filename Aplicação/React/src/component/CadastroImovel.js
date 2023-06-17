@@ -68,7 +68,7 @@ function CadastroImovel() {
                   <br></br>
                   <fieldset>
                     <legend class="cadImoLegendFieldInfo">Infos Adicionais</legend>
-                    <textarea name="infosAdicionais" rows="5" cols="30" class="textAreaSize"></textarea>
+                    <textarea name="infosAdicionais" id="infos" rows="5" cols="30" class="textAreaSize"></textarea>
                   </fieldset>
                   <div className="file-input-container">
                     <label htmlFor="arquivo" className="labelEnvioCadImo">Enviar Fotos</label>
