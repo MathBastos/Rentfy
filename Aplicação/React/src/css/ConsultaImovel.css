@@ -1,0 +1,59 @@
+.ConsultaImovel {
+    text-align: center;
+  }
+  
+  .ConsultaImovel-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .ConsultaImovel-logo {
+      animation: ConsultaImovel-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .ConsultaImovel-header {
+    background-image: url("../img/background.png");
+    background-color: #282c34;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+  }
+  
+  .ConsultaImovel-link {
+    color: #61dafb;
+  }
+  
+  .rentfyLogoConsultaImovel{
+    width: 35%;
+    height: auto;
+  }
+
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-bordered td,
+  .table-bordered th {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-bordered thead th {
+    border-bottom-width: 2px;
+    border-top: 1px solid #dee2e6; /* Adiciona uma linha no topo do cabeçalho */
+  }
+  
+  #imoveis-localizados {
+    border: 1px solid #000000; /* Adiciona uma linha no exterior da tabela */
+    margin: 0 auto; /* Center horizontally */
+    text-align: center; /* Center the content within each cell */
+  }

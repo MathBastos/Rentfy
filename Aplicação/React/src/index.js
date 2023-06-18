@@ -3,9 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Start from './component/Start';
 import Login from './component/Login';
-import Main from './component/Main';
-import Cadastro from './component/Cadastro';
+import Admin from './component/Admin';
+import MainLocador from './component/MainLocador';
+import MainLocatario from './component/MainLocatario';
+import CadastroLocatario from './component/CadastroLocatario';
+import CadastroLocadora from './component/CadastroLocadora';
 import CadastroImovel from './component/CadastroImovel';
+import GerenciarImovel from './component/GerenciarImovel';
+import BuscarImovel from './component/BuscarImovel';
+import VisualizarImovel from './component/VisualizarImovel';
+import ConsultaImovel from './component/ConsultaImovel';
+import ReservarImovel from './component/ReservarImovel';
+import EditarLocadora from './component/EditarLocadora';
+import EditarLocatario from './component/EditarLocatario';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Redirect} from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
@@ -17,9 +27,19 @@ root.render(
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/component/Login.js" element={<Login />} />
-        <Route path="/component/Cadastro.js" element={<Cadastro />} />
+        <Route path="/component/Admin.js" element={<Admin />} />
+        <Route path="/component/CadastroLocatario.js" element={<CadastroLocatario />} />
+        <Route path="/component/CadastroLocadora.js" element={<CadastroLocadora />} />
         <Route path="/component/CadastroImovel.js" element={<CadastroImovel />} />
-        <Route path="/component/Main.js" element={<Main />} />
+        <Route path="/component/GerenciarImovel.js" element={<GerenciarImovel />} />
+        <Route path="/component/BuscarImovel.js" element={<BuscarImovel />} />
+        <Route path="/component/VisualizarImovel.js" element={<VisualizarImovel />} />
+        <Route path="/component/MainLocador.js" element={<MainLocador />} />
+        <Route path="/component/MainLocatario.js" element={<MainLocatario />} />
+        <Route path="/component/ConsultaImovel.js" element={<ConsultaImovel />} />
+        <Route path="/component/ReservarImovel.js" element={<ReservarImovel />} />
+        <Route path="/component/EditarLocadora.js" element={<EditarLocadora />} />
+        <Route path="/component/EditarLocatario.js" element={<EditarLocatario />} /> 
       </Routes>
     </Router>
   </React.StrictMode>
