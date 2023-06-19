@@ -16,8 +16,7 @@ O sistema permite a pré reserva de imóveis disponibilizados por diversas locad
 
 Após baixar o projeto, para roda-lo localmente:
 
-    * Colocar a pasta do projeto dentro da pasta do servidor(htdocs no xampp por exemplo) ou 
-    em algum diretório de conhecimento e rodar na IDE;
+    * Colocar a pasta do projeto dentro da pasta do servidor ou em algum diretório de conhecimento e rodar na IDE;
     * Para edição dos arquivos, abri-los em qualquer IDE(Visual Studio por exemplo);
     
 # Tecnologias utilizadas
@@ -25,3 +24,4 @@ Após baixar o projeto, para roda-lo localmente:
     * React
     * Spring
     * Bootstrap
+    * Firebase
