@@ -6,6 +6,7 @@ import Login from './component/Login';
 import Admin from './component/Admin';
 import MainLocador from './component/MainLocador';
 import MainLocatario from './component/MainLocatario';
+import Cadastro from './component/Cadastro';
 import CadastroLocatario from './component/CadastroLocatario';
 import CadastroLocadora from './component/CadastroLocadora';
 import CadastroImovel from './component/CadastroImovel';
@@ -28,6 +29,7 @@ root.render(
         <Route path="/" element={<Start />} />
         <Route path="/component/Login.js" element={<Login />} />
         <Route path="/component/Admin.js" element={<Admin />} />
+        <Route path="/component/Cadastro.js" element={<Cadastro />} />
         <Route path="/component/CadastroLocatario.js" element={<CadastroLocatario />} />
         <Route path="/component/CadastroLocadora.js" element={<CadastroLocadora />} />
         <Route path="/component/CadastroImovel.js" element={<CadastroImovel />} />

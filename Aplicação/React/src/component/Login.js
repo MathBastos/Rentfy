@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
 import logo from '../img/logo.png';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
 
   const [selectedRow, setSelectedRow] = useState(null);
-
   const [selectedButton, setSelectedButton] = useState(null);
   const [usuario, setUsername] = useState('');
   const [senha, setPassword] = useState('');
@@ -16,16 +16,31 @@ function Login() {
     setSelectedButton(buttonName);
   };
 
-  const handleLogin = () => {
-    if (usuario === 'admin' && senha === 'admin') {
-      // Redirecionar para a página do administrador
-      navigate('/component/Admin.js');
-    } else {
-      if (selectedButton === 'Locadora') {
-        navigate('/component/MainLocador.js');
-      } else if (selectedButton === 'Locatário') {
-        navigate('/component/MainLocatario.js');
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/auth/authenticate', {
+        usuario: usuario,
+        senha: senha
+      });
+
+      if (response.data.success) {
+        if (usuario === 'admin' && senha === 'admin') {
+          // Redirect to the admin page
+          navigate('/component/Admin.js');
+        } else {
+          if (selectedButton === 'Locadora') {
+            navigate('/component/MainLocador.js');
+          } else if (selectedButton === 'Locatário') {
+            navigate('/component/MainLocatario.js');
+          }
+        }
+      } else {
+        // Handle unsuccessful login
+        console.log('Login failed');
       }
+    } catch (error) {
+      // Handle error
+      console.log('Error occurred:', error);
     }
   };
 
@@ -75,7 +90,7 @@ function Login() {
                       <label htmlFor="senha">senha:</label><br />
                       <input
                         className="rounded-input"
-                        type="senha"
+                        type="password"
                         id="senha"
                         value={senha}
                         onChange={(e) => setPassword(e.target.value)}
