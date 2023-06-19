@@ -8,6 +8,10 @@ function CadastroLocadora() {
 
   const [selectedRow, setSelectedRow] = useState(null);
 
+  const login = () => {
+    navigate('/component/Login.js');
+};
+
   return (
     <div className="CadastroLocadora">
       <header className="CadastroLocadora-header">
@@ -89,7 +93,7 @@ function CadastroLocadora() {
                         <input type="password" id="senha" className="rounded-input" />
                     </div>
 
-                    <button className="btnCadastrarLocadora">Cadastrar Locadora</button>
+                    <button className="btnCadastrarLocadora" onClick={login}>Cadastrar Locadora</button>
                     </form>
                 </fieldset>
               </td>
