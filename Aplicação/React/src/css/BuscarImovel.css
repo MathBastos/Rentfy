@@ -34,7 +34,7 @@
   }
   
   .rentfyLogoBuscarImovel{
-    width: 35%;
+    width: 12%;
     height: auto;
   }
 
@@ -111,24 +111,28 @@
   }
 
   .table-bordered {
-    border: 1px solid #dee2e6;
+    border: 1px solid rgba(175, 175, 175, 0.364);
+    background-color:rgba(175, 175, 175, 0.364);
   }
   
   .table-bordered td,
   .table-bordered th {
-    border: 1px solid #dee2e6;
+    border: 1px solid rgba(175, 175, 175, 0.364);
   }
   
   .table-bordered thead th {
     border-bottom-width: 2px;
-    border-top: 1px solid #dee2e6; /* Adiciona uma linha no topo do cabeçalho */
+    border-top: 1px solid rgba(175, 175, 175, 0.364);
   }
   
   #imoveis-localizados {
     border: 1px solid #000000; /* Adiciona uma linha no exterior da tabela */
   }
 
-  
+  .fieldset-custom-buscar{
+    background-color:rgba(175, 175, 175, 0.364);
+    width: 400px;
+  }
   
   
   

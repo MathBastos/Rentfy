@@ -15,119 +15,124 @@ function VisualizarImovel() {
   return (
     <div className="VisualizarImovel">
       <header className="VisualizarImovel-header">
-        <table>
-          <tbody>
-            <tr>
-              <td colSpan="2">
-                <img src={logo} className="rentfyLogoVisualizarImovel" alt="logo" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <fieldset className="fieldset-custom">
-                  <legend>Visualizar Imóvel</legend>
-                  <form id="VisualizarImovel">
+        <img src={logo} className="rentfyLogoVisualizarImovel" alt="logo" />
+        <div className="form-container">
+          <table>
+            <tbody>
+              <tr>
+                <td rowspan="2">
+                  <fieldset className="fieldset-custom">
+                    <legend>Dados do Imóvel</legend>
+                    <form id="GerenciarImovel">
+                      <div className="form-group">
+                        <label htmlFor="cep">CEP</label>
+                        <br />
+                        <input type="text" id="cep" className="rounded-input" pattern="[0-9]{5}-?[0-9]{3}" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="estado">Estado</label>
+                        <br />
+                        <input type="text" id="estado" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="cidade">Cidade</label>
+                        <br />
+                        <input type="text" id="cidade" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="bairro">Bairro</label>
+                        <br />
+                        <input type="text" id="bairro" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="tipo">Tipo</label>
+                        <br />
+                        <input type="text" id="tipo" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="varanda">Varanda</label>
+                        <br />
+                        <input type="text" id="varanda" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="imobiliado">Imobiliado</label>
+                        <br />
+                        <input type="text" id="imobiliado" className="rounded-input"/>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="valorReserva">Valor Reserva</label>
+                        <br />
+                        <input type="number" id="valorReserva" className="rounded-input" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="quantidadeQuartos">Quantidade de Quartos</label>
+                        <br />
+                        <input type="number" id="quantidadeQuartos" className="rounded-input" />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="quantidadeBanheiros">Quantidade de Banheiros</label>
+                        <br />
+                        <input type="number" id="quantidadeBanheiros" className="rounded-input" />
+                      </div>
+                    </form>
+                  </fieldset>
+                </td>
+                <td className="cell-spacing"></td>
+                <td rowspan="1">
+                  <fieldset className="fieldset-custom">
+                    <legend>Dados da Locadora</legend>
                     <div className="form-group">
-                      <label htmlFor="cep">CEP</label>
+                      <label htmlFor="nomeFantasia">Nome Fantasia</label>
                       <br />
-                      <input type="text" id="cep" className="rounded-input" pattern="[0-9]{5}-?[0-9]{3}" />
+                      <input type="text" id="nomeFantasia" className="rounded-input" />
                     </div>
-
                     <div className="form-group">
-                      <label htmlFor="estado">Estado</label>
+                      <label htmlFor="email">Email</label>
                       <br />
-                      <select id="estado" className="rounded-input">
-                        <option value="PR">Paraná</option>
-                      </select>
+                      <input type="email" id="email" className="rounded-input" />
                     </div>
-
                     <div className="form-group">
-                      <label htmlFor="cidade">Cidade</label>
+                      <label htmlFor="telefone">Telefone</label>
                       <br />
-                      <input type="text" id="cidade" className="rounded-input" />
+                      <input type="tel" id="telefone" className="rounded-input" />
                     </div>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr>
+                <td className="cell-spacing"></td>
+                <td rowspan="1">
+                  <fieldset className="fieldset-custom">
+                    <legend>Data da Reserva</legend>
+                    <form id="ReservarImovel">
+                      <div className="form-group">
+                        <label htmlFor="dataInicio">Data de Início</label>
+                        <br />
+                        <input type="date" id="dataInicio" className="rounded-input" />
+                      </div>
 
-                    <div className="form-group">
-                      <label htmlFor="rua">Rua</label>
-                      <br />
-                      <input type="text" id="rua" className="rounded-input" />
-                    </div>
+                      <div className="form-group">
+                        <label htmlFor="dataFim">Data de Fim</label>
+                        <br />
+                        <input type="date" id="dataFim" className="rounded-input" />
+                      </div>
 
-                    <div className="form-group">
-                      <label htmlFor="numero">Número</label>
-                      <br />
-                      <input type="number" id="numero" className="rounded-input" />
-                    </div>
+                      <div className="form-group">
+                        <label htmlFor="totalReserva">Total da Reserva</label>
+                        <br />
+                        <input type="number" id="totalReserva" className="rounded-input" />
+                      </div>
 
-                    <div className="form-group">
-                      <label htmlFor="complemento">Complemento</label>
-                      <br />
-                      <input type="text" id="complemento" className="rounded-input" />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="numQuartos">Número de Quartos</label>
-                      <br />
-                      <input type="number" id="numQuartos" className="rounded-input" />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="numBanheiros">Número de Banheiros</label>
-                      <br />
-                      <input type="number" id="numBanheiros" className="rounded-input" />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="garagem">Garagem</label>
-                      <br />
-                      <select id="garagem" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="tipo">Tipo</label>
-                      <br />
-                      <select id="tipo" className="rounded-input">
-                        <option value="apartamento">Apartamento</option>
-                        <option value="casa">Casa</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="varanda">Varanda</label>
-                      <br />
-                      <select id="varanda" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="imobiliado">Imobiliado</label>
-                      <br />
-                      <select id="imobiliado" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="valorReserva">Valor Reserva</label>
-                      <br />
-                      <input type="number" id="valorReserva" className="rounded-input" />
-                    </div>
-
-                    <button className="btnReservarImovel" onClick={reservarClick}>Reservar Imóvel</button>
-                  </form>
-
-
-                </fieldset>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                      <div className="form-group">
+                        <button className="btnReservarImovel">Reservar Imóvel</button>
+                      </div>
+                    </form>
+                  </fieldset>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </header>
     </div>
   );

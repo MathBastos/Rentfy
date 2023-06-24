@@ -34,7 +34,7 @@
 }
 
 .rentfyLogoVisualizarImovel{
-  width: 35%;
+  width: 12%;
   height: auto;
 }
 
@@ -144,4 +144,13 @@
 
 .fieldset-custom {
   background-color: rgba(139, 138, 138, 0.364);
+}
+
+.centered-fieldset {
+  display: flex;
+  justify-content: center;
+}
+
+.VisualizarImovel .cell-spacing {
+  width: 1em;
 }
