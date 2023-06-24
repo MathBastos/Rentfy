@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/BuscarImovel.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -23,8 +23,13 @@ function BuscarImovel() {
   const [imobiliado, setImobiliado] = useState('nao');
   const [valorReserva, setValorReserva] = useState('');
   const [selectedRow, setSelectedRow] = useState(null);
+  const [imoveis, setImoveis] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    buscarImoveis();
+  }, []);
 
   const handleUfChange = (event) => {
     const selectedUf = event.target.value;
@@ -121,12 +126,24 @@ function BuscarImovel() {
   };
 
   const handleBuscarImovel = () => {
-    // Inserir a lógica para buscar os imóveis com base nos filtros selecionados
     setMostrarResultados(true);
+    buscarImoveis();
   };
 
   const verImoClick = () => {
     navigate('/component/VisualizarImovel.js');
+  };
+
+  const buscarImoveis = () => {
+    // Inserir a lógica para buscar os imóveis no Spring Boot
+    axios
+      .get('http://localhost:8080/api/')
+      .then((response) => {
+        setImoveis(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -141,7 +158,15 @@ function BuscarImovel() {
               <div className="form-group">
                 <label htmlFor="cep">CEP</label>
                 <br />
-                <input type="text" id="cep" className="rounded-input" pattern="[0-9]{5}-?[0-9]{3}" value={cep} onChange={handleCepChange} onBlur={handleCepBlur} />
+                <input
+                  type="text"
+                  id="cep"
+                  className="rounded-input"
+                  pattern="[0-9]{5}-?[0-9]{3}"
+                  value={cep}
+                  onChange={handleCepChange}
+                  onBlur={handleCepBlur}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="estado">Estado</label>
@@ -223,27 +248,31 @@ function BuscarImovel() {
               <div className="form-group">
                 <label htmlFor="quantidadeQuartos">Quantidade de Quartos</label>
                 <br />
-                <input type="number" id="quantidadeQuartos" className="rounded-input" value={numQuartos} onChange={(e) => setNumQuartos(e.target.value)} />
+                <input
+                  type="number"
+                  id="quantidadeQuartos"
+                  className="rounded-input"
+                  value={numQuartos}
+                  onChange={(e) => setNumQuartos(e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="quantidadeBanheiros">Quantidade de Banheiros</label>
                 <br />
-                <input type="number" id="quantidadeBanheiros" className="rounded-input" value={numBanheiros} onChange={(e) => setNumBanheiros(e.target.value)} />
+                <input
+                  type="number"
+                  id="quantidadeBanheiros"
+                  className="rounded-input"
+                  value={numBanheiros}
+                  onChange={(e) => setNumBanheiros(e.target.value)}
+                />
               </div>
               <div>
                 <label htmlFor="slider" className="labelCadImo">
                   Valor Mínimo: {sliderValue}
                 </label>{' '}
                 <br />
-                <input
-                  type="range"
-                  min="0"
-                  max="10000"
-                  value={sliderValue}
-                  step="1"
-                  id="sliderMin"
-                  onChange={handleSliderChange}
-                />
+                <input type="range" min="0" max="10000" value={sliderValue} step="1" id="sliderMin" onChange={handleSliderChange} />
                 <input type="number" min="0" max="10000" value={numericValue} onChange={handleNumericInputChange} />
                 <br />
               </div>
@@ -261,13 +290,7 @@ function BuscarImovel() {
                   id="sliderMax"
                   onChange={handleMaxSliderChange}
                 />
-                <input
-                  type="number"
-                  min="0"
-                  max="10000"
-                  value={maxNumericValue}
-                  onChange={handleMaxNumericInputChange}
-                />
+                <input type="number" min="0" max="10000" value={maxNumericValue} onChange={handleMaxNumericInputChange} />
                 <br />
               </div>
             </form>
@@ -291,7 +314,16 @@ function BuscarImovel() {
                 </tr>
               </thead>
               <tbody>
-                {/* Insira os dados da tabela aqui */}
+                {imoveis.map((imovel, index) => (
+                  <tr key={index} className={selectedRow === index ? 'selected-row' : ''} onClick={() => handleRowClick(index)}>
+                    <td>{`${imovel.uf} - ${imovel.cidade}`}</td>
+                    <td>{imovel.bairro}</td>
+                    <td>{imovel.tipo}</td>
+                    <td>{imovel.numQuartos}</td>
+                    <td>{imovel.numBanheiros}</td>
+                    <td>{imovel.valor}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <button className="btnCadastrarImovel" onClick={verImoClick}>

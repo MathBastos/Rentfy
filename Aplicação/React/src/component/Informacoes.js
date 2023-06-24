@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../css/Informacoes.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +12,21 @@ function Informacoes() {
   const [tipoValue, setTipoValue] = useState('');
   const [mostrarResultados, setMostrarResultados] = useState(false); // Estado para controlar a exibição dos resultados
   const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from the Spring Boot backend using Axios
+    axios.get('http://localhost:8080/api/imoveis')
+      .then(response => {
+        // Update the rows state with the received data
+        setRows(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   const handleUfChange = (event) => {
     const selectedUf = event.target.value;
@@ -77,63 +93,6 @@ function Informacoes() {
     setMaxNumericValue(value);
     setMaxSliderValue(value);
   };
-
-  const [selectedRow, setSelectedRow] = useState(null);
-
-  const rows = [
-    { 
-      ufCidade: 'PR - Curitiba', 
-      bairro: 'Uberaba', 
-      tipo: 'Casa', 
-      quartos: 3, 
-      banheiros: 2, 
-      valor: 'R$800.00',
-      locadora: 'ImoveisCWB',
-      telefoneLocadora: '41 3266-6661',
-      alugado: 'Sim',
-      nomeLocatario: 'Matheus',
-      telefoneLocatario: '41 99988-7766'
-    },
-    { 
-      ufCidade: 'PR - Curitiba', 
-      bairro: 'Prado Velho', 
-      tipo: 'Apto.', 
-      quartos: 2, 
-      banheiros: 1, 
-      valor: 'R$1200.00',
-      locadora: 'ImovelFacil',
-      telefoneLocadora: '41 3322-1100',
-      alugado: 'Não',
-      nomeLocatario: '',
-      telefoneLocatario: ''
-    },
-    { 
-      ufCidade: '', 
-      bairro: '', 
-      tipo: '', 
-      quartos: null, 
-      banheiros: null, 
-      valor: '',
-      locadora: '',
-      telefoneLocadora: '',
-      alugado: '',
-      nomeLocatario: '',
-      telefoneLocatario: ''
-    },
-    { 
-      ufCidade: '', 
-      bairro: '', 
-      tipo: '', 
-      quartos: null, 
-      banheiros: null, 
-      valor: '',
-      locadora: '',
-      telefoneLocadora: '',
-      alugado: '',
-      nomeLocatario: '',
-      telefoneLocatario: ''
-    },
-  ];
 
   const handleRowClick = (index) => {
     setSelectedRow(index);
