@@ -1,0 +1,140 @@
+.Informacoes {
+    text-align: center;
+  }
+  
+  .Informacoes-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .Informacoes-logo {
+      animation: Informacoes-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .Informacoes-header {
+    background-image: url("../img/background.png");
+    background-color: #282c34;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+  }
+  
+  .Informacoes-link {
+    color: #61dafb;
+  }
+  
+  .rentfyLogoInformacoes{
+    width: 12%;
+    height: auto;
+  }
+
+  .labelCadImo{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .numCadImo{
+    width: 50px;
+  }
+
+  .compCadImo{
+    width: 100px;
+  }
+
+  .cadImoLegendFieldInfo{
+    font-size: 20px;
+  }
+
+  .textAreaSize{
+    resize: none;
+  }
+
+  .inputCadImo[type="file"] {
+    display: none;
+}
+
+.labelEnvioCadImo {
+    padding: 20px 10px;
+    width: 150px;
+    background-color: #333;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.file-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .locationImg{
+    width: 100%;
+    height: auto;
+  }
+
+  .btnFiltrarImovel {
+    font-size:15px;
+    font-family:Arial;
+    width:140px;
+    height:50px;
+    border-width:1px;
+    color:#fff;
+    border-color:rgba(5, 84, 158, 1);
+    font-weight:bold;
+    border-top-left-radius:28px;
+    border-top-right-radius:28px;
+    border-bottom-left-radius:28px;
+    border-bottom-right-radius:28px;
+    text-shadow: 1px 1px 0px #110754;
+    background:rgba(82, 124, 189, 1);
+    margin-top: 15px;
+  }
+  
+  .btnFiltrarImovel:hover {
+    background: rgba(76, 189, 214, 1)
+  }
+
+  .table-bordered {
+    border: 1px solid rgba(175, 175, 175, 0.364);
+    background-color:rgba(175, 175, 175, 0.364);
+  }
+  
+  .table-bordered td,
+  .table-bordered th {
+    border: 1px solid rgba(175, 175, 175, 0.364);
+  }
+  
+  .table-bordered thead th {
+    border-bottom-width: 2px;
+    border-top: 1px solid rgba(175, 175, 175, 0.364);
+  }
+  
+  #imoveis-localizados {
+    border: 1px solid #000000; /* Adiciona uma linha no exterior da tabela */
+  }
+
+  .fieldset-custom{
+    background-color:rgba(175, 175, 175, 0.364);
+    width: 400px;
+  }
+  
+  
+  
+  
+  

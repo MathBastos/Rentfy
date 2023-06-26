@@ -18,14 +18,13 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/authenticate', {
+      const response = await axios.post('http://localhost:8080/api/auth/authenticate/', {
         usuario: usuario,
         senha: senha
       });
 
       if (response.data.success) {
         if (usuario === 'admin' && senha === 'admin') {
-          // Redirect to the admin page
           navigate('/component/Admin.js');
         } else {
           if (selectedButton === 'Locadora') {
@@ -35,11 +34,9 @@ function Login() {
           }
         }
       } else {
-        // Handle unsuccessful login
         console.log('Login failed');
       }
     } catch (error) {
-      // Handle error
       console.log('Error occurred:', error);
     }
   };

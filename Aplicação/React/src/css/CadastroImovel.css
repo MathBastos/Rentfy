@@ -144,4 +144,9 @@
 
 .fieldset-custom {
   background-color: rgba(139, 138, 138, 0.364);
+  margin-left: 55px;
+}
+
+.center {
+  text-align: center;
 }

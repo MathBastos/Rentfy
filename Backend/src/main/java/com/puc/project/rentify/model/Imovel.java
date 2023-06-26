@@ -1,27 +1,41 @@
 package com.puc.project.rentify.model;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Imovel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Hidden
-    private String id;
-    @NotBlank
-    private double preco_dia;
-    @NotBlank
-    private String flag_reservado;
-    @NotBlank
-    private String id_locadora;
-    @NotBlank
-    private String id_especificacao;
-    @NotBlank
-    private String id_endereco;
+    private long id;
 
-    public Imovel(){
-        this.id = UUID.randomUUID().toString();
-    }
+    @Column(nullable = false)
+    private Double preco_dia;
+    @Column(nullable = false)
+    private String tipo;
+    @Column(nullable = false)
+    private Integer num_quartos;
+    @Column(nullable = false)
+    private Integer num_banheiros;
+    @Column(nullable = false)
+    private String varanda;
+    private String garagem;
+    @Column(nullable = false)
+    private String imobiliado;
+    @Column(nullable = false)
+    private String descricao;
+    @Column(nullable = false)
+    private String cep;
+    @Column(nullable = false)
+    private String numero;
+    private String complemento;
+    @ManyToOne()
+    private Locadora locadora;
 }

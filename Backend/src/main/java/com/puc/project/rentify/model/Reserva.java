@@ -1,31 +1,32 @@
 package com.puc.project.rentify.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.Hidden;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
 
 @Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Reserva {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Hidden
-    private String id;
-    @NotBlank
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date data_inicio;
-    @NotBlank
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date data_final;
-    @NotBlank
-    private double valor_reserva;
-    @NotBlank
-    private String id_imovel;
-    @NotBlank
-    private String id_locatario;
+    private long id;
 
-    public Reserva(){
-        this.id = UUID.randomUUID().toString();
-    }
+    @Column(nullable = false)
+    private LocalDate data_inicio;
+    @Column(nullable = false)
+    private LocalDate data_fim;
+    @Column(nullable = false)
+    private Double valor_reserva;
+    @ManyToOne()
+    private Locatario locatario;
+    @ManyToOne()
+    private Imovel imovel;
+
 }

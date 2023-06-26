@@ -1,28 +1,34 @@
 package com.puc.project.rentify.model;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
 
 @Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Locatario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Hidden
-    private String id;
-    @NotBlank
-    private String cpf;
-    @NotBlank
-    private String celular;
-    @NotBlank
-    private Date data_nascimento;
-    @NotBlank
-    private String id_usuario;
-    @NotBlank
-    private String id_endereco;
+    private long id;
 
-    public Locatario(){
-        this.id = UUID.randomUUID().toString();
-    }
+    @Column(unique=true, nullable = false)
+    private String cpf;
+    @Column(nullable = false)
+    private String celular;
+    @Column(nullable = false)
+    private LocalDate data_nascimento;
+    @Column(nullable = false)
+    private String cep;
+    @Column(nullable = false)
+    private String numero;
+    private String complemento;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Usuario usuario;
 }

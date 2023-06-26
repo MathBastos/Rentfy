@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../css/GerenciarImovel.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,41 @@ function GerenciarImovel() {
   const navigate = useNavigate();
 
   const [selectedRow, setSelectedRow] = useState(null);
+  const [formData, setFormData] = useState({
+    cep: '',
+    numero: '',
+    complemento: '',
+    numQuartos: '',
+    numBanheiros: '',
+    garagem: 'nao',
+    tipo: 'apartamento',
+    varanda: 'nao',
+    imobiliado: 'nao',
+    valorReserva: ''
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Send the form data to the Spring Boot backend
+    axios.post('http://localhost:8080/api/editarimovel', formData)
+      .then((response) => {
+        // Handle the response here (e.g., show success message)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Handle errors here (e.g., show error message)
+        console.error(error);
+      });
+  };
 
   return (
     <div className="GerenciarImovel">
@@ -22,130 +58,133 @@ function GerenciarImovel() {
               <td>
                 <fieldset className="fieldset-custom">
                   <legend>Gerenciar de Imóvel</legend>
-                  <form id="GerenciarImovel">
+                  <form id="GerenciarImovel" onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label htmlFor="cep">CEP</label>
                       <br />
-                      <input type="text" id="cep" className="rounded-input" pattern="[0-9]{5}-?[0-9]{3}" />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="estado">Estado</label>
-                      <br />
-                      <select id="estado" className="rounded-input">
-                        <option value="">Selecione um estado</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="cidade">Cidade</label>
-                      <br />
-                      <input type="text" id="cidade" className="rounded-input" />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="rua">Rua</label>
-                      <br />
-                      <input type="text" id="rua" className="rounded-input" />
+                      <input
+                        type="text"
+                        id="cep"
+                        className="rounded-input"
+                        pattern="[0-9]{5}-?[0-9]{3}"
+                        value={formData.cep}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="numero">Número</label>
                       <br />
-                      <input type="number" id="numero" className="rounded-input" />
+                      <input
+                        type="number"
+                        id="numero"
+                        className="rounded-input"
+                        value={formData.numero}
+                        onChange={handleChange}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="complemento">Complemento</label>
                       <br />
-                      <input type="text" id="complemento" className="rounded-input" />
+                      <input
+                        type="text"
+                        id="complemento"
+                        className="rounded-input"
+                        value={formData.complemento}
+                        onChange={handleChange}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="numQuartos">Número de Quartos</label>
                       <br />
-                      <input type="number" id="numQuartos" className="rounded-input" />
+                      <input
+                        type="number"
+                        id="numQuartos"
+                        className="rounded-input"
+                        value={formData.numQuartos}
+                        onChange={handleChange}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="numBanheiros">Número de Banheiros</label>
                       <br />
-                      <input type="number" id="numBanheiros" className="rounded-input" />
+                      <input
+                        type="number"
+                        id="numBanheiros"
+                        className="rounded-input"
+                        value={formData.numBanheiros}
+                        onChange={handleChange}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="garagem">Garagem</label>
                       <br />
-                      <select id="garagem" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
+                      <select
+                        id="garagem"
+                        className="rounded-input"
+                        value={formData.garagem}
+                        onChange={handleChange}
+                      >
+                        {/* Options here */}
                       </select>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="tipo">Tipo</label>
                       <br />
-                      <select id="tipo" className="rounded-input">
-                        <option value="apartamento">Apartamento</option>
-                        <option value="casa">Casa</option>
+                      <select
+                        id="tipo"
+                        className="rounded-input"
+                        value={formData.tipo}
+                        onChange={handleChange}
+                      >
+                        {/* Options here */}
                       </select>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="varanda">Varanda</label>
                       <br />
-                      <select id="varanda" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
+                      <select
+                        id="varanda"
+                        className="rounded-input"
+                        value={formData.varanda}
+                        onChange={handleChange}
+                      >
+                        {/* Options here */}
                       </select>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="imobiliado">Imobiliado</label>
                       <br />
-                      <select id="imobiliado" className="rounded-input">
-                        <option value="nao">Não</option>
-                        <option value="sim">Sim</option>
+                      <select
+                        id="imobiliado"
+                        className="rounded-input"
+                        value={formData.imobiliado}
+                        onChange={handleChange}
+                      >
+                        {/* Options here */}
                       </select>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="valorReserva">Valor Reserva</label>
                       <br />
-                      <input type="number" id="valorReserva" className="rounded-input" />
+                      <input
+                        type="number"
+                        id="valorReserva"
+                        className="rounded-input"
+                        value={formData.valorReserva}
+                        onChange={handleChange}
+                      />
                     </div>
 
-                    <button className="btnAlterarImovel">Alterar Imóvel</button>
+                    <button type="submit" className="btnAlterarImovel">Alterar Imóvel</button>
                   </form>
-
-
                 </fieldset>
               </td>
             </tr>

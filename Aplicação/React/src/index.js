@@ -17,6 +17,7 @@ import ConsultaImovel from './component/ConsultaImovel';
 import ReservarImovel from './component/ReservarImovel';
 import EditarLocadora from './component/EditarLocadora';
 import EditarLocatario from './component/EditarLocatario';
+import Informacoes from './component/Informacoes';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Redirect} from 'react-router-dom';
 import { Switch, Route } from 'react-router-dom';
@@ -42,6 +43,7 @@ root.render(
         <Route path="/component/ReservarImovel.js" element={<ReservarImovel />} />
         <Route path="/component/EditarLocadora.js" element={<EditarLocadora />} />
         <Route path="/component/EditarLocatario.js" element={<EditarLocatario />} /> 
+        <Route path="/component/Informacoes.js" element={<Informacoes />} />
       </Routes>
     </Router>
   </React.StrictMode>

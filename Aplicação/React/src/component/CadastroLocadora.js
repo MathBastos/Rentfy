@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../css/CadastroLocadora.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -6,11 +7,40 @@ import { useNavigate } from 'react-router-dom';
 function CadastroLocadora() {
   const navigate = useNavigate();
 
-  const [selectedRow, setSelectedRow] = useState(null);
+  const cadastrarLocadora = () => {
+    const nomeFantasia = document.getElementById('nomeFantasia').value;
+    const cnpj = document.getElementById('cnpj').value;
+    const cep = document.getElementById('cep').value;
+    const numero = document.getElementById('numero').value;
+    const email = document.getElementById('email').value;
+    const complemento = document.getElementById('complemento').value;
+    const telefone = document.getElementById('telefone').value;
+    const usuario = document.getElementById('usuario').value;
+    const senha = document.getElementById('senha').value;
 
-  const login = () => {
-    navigate('/component/Login.js');
-};
+    axios
+      .post('http://localhost:8080/api/locadoras/', {
+        'nome_fantaria': nomeFantasia,
+        'cnpj': cnpj,
+        'telefone' : telefone,
+        'cep' : cep,
+        'numero' : numero,
+        'complemento' : complemento,
+        'usuarioRegistro' : {
+          'usuario': usuario,
+          'email': email,
+          'senha': senha,
+          'role': 'USER'
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        navigate('/component/Login.js');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="CadastroLocadora">
@@ -28,73 +58,63 @@ function CadastroLocadora() {
                   <legend>Cadastro de Locadora</legend>
                   <form id="CadastroLocadora">
                     <div className="form-group">
-                        <label htmlFor="nomeFantasia">Nome Fantasia</label>
-                        <br />
-                        <input type="text" id="nomeFantasia" className="rounded-input" />
+                      <label htmlFor="nomeFantasia">Nome Fantasia</label>
+                      <br />
+                      <input type="text" id="nomeFantasia" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="cnpj">CNPJ</label>
-                        <br />
-                        <input type="text" id="cnpj" className="rounded-input" />
+                      <label htmlFor="cnpj">CNPJ</label>
+                      <br />
+                      <input type="text" id="cnpj" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="cep">CEP</label>
-                        <br />
-                        <input type="text" id="cep" className="rounded-input" />
+                      <label htmlFor="cep">CEP</label>
+                      <br />
+                      <input type="text" id="cep" className="rounded-input"/>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="cidade">Cidade</label>
-                        <br />
-                        <input type="text" id="cidade" className="rounded-input" />
+                      <label htmlFor="numero">Número</label>
+                      <br />
+                      <input type="text" id="numero" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="estado">Estado</label>
-                        <br />
-                        <input type="text" id="estado" className="rounded-input" />
+                      <label htmlFor="numero">Complemento</label>
+                      <br />
+                      <input type="text" id="complemento" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="rua">Rua</label>
-                        <br />
-                        <input type="text" id="rua" className="rounded-input" />
+                      <label htmlFor="email">Email</label>
+                      <br />
+                      <input type="email" id="email" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="numero">Número</label>
-                        <br />
-                        <input type="text" id="numero" className="rounded-input" />
+                      <label htmlFor="telefone">Telefone</label>
+                      <br />
+                      <input type="tel" id="telefone" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <br />
-                        <input type="email" id="email" className="rounded-input" />
+                      <label htmlFor="usuario">Usuário</label>
+                      <br />
+                      <input type="text" id="usuario" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="telefone">Telefone</label>
-                        <br />
-                        <input type="tel" id="telefone" className="rounded-input" />
+                      <label htmlFor="senha">Senha</label>
+                      <br />
+                      <input type="password" id="senha" className="rounded-input" />
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="usuario">Usuário</label>
-                        <br />
-                        <input type="text" id="usuario" className="rounded-input" />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="senha">Senha</label>
-                        <br />
-                        <input type="password" id="senha" className="rounded-input" />
-                    </div>
-
-                    <button className="btnCadastrarLocadora" onClick={login}>Cadastrar Locadora</button>
-                    </form>
+                    <button className="btnCadastrarLocadora" onClick={cadastrarLocadora}>
+                      Cadastrar Locadora
+                    </button>
+                  </form>
                 </fieldset>
               </td>
             </tr>
