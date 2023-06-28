@@ -2,7 +2,6 @@ package com.puc.project.rentify.controller;
 
 import com.puc.project.rentify.model.ApiError;
 import com.puc.project.rentify.model.UsuarioRegistro;
-import com.puc.project.rentify.model.Role;
 import com.puc.project.rentify.model.Usuario;
 import com.puc.project.rentify.repository.LocadoraRepository;
 import com.puc.project.rentify.repository.LocatarioRepository;
@@ -12,9 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -25,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,8 +31,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@SecurityRequirement(name = "Bearer Authentication")
-@Secured("ROLE_ADMIN")
 @Tag(name = "Usuário", description = "API Usuário contendo todos os processos relacionado.")
 public class UsuarioController {
     @Autowired
@@ -102,11 +95,6 @@ public class UsuarioController {
                 if (allParams.containsKey("email")) {
                     predicates.add(criteria.equal(root.get("email"), allParams.get("email")));
                 }
-                if (allParams.containsKey("role")) {
-                    if (Role.hasThisName(allParams.get("role"))) {
-                        predicates.add(criteria.equal(root.get("role"), Role.findByName(allParams.get("role"))));
-                    }
-                }
                 query.where(predicates.toArray(new Predicate[0]));
                 List<Usuario> result = entity.createQuery(query).getResultList();
                 return new ResponseEntity<>(result, HttpStatus.OK);
@@ -132,14 +120,11 @@ public class UsuarioController {
                 return new ResponseEntity<>(new ApiError("406", "Usuário já existente"), HttpStatus.NOT_ACCEPTABLE);
             } else if (repository.existsUsuarioByEmail(registro.getEmail())) {
                 return new ResponseEntity<>(new ApiError("406", "Email já existente"), HttpStatus.NOT_ACCEPTABLE);
-            } else if (!registro.getRole().hasThisName()) {
-                return new ResponseEntity<>(new ApiError("406", "Role inválida. Precisa ser 'ADMIN' ou 'USER'"), HttpStatus.NOT_ACCEPTABLE);
             } else {
                 Usuario _usuario = new Usuario();
                 _usuario.setUsuario(registro.getUsuario());
                 _usuario.setEmail(registro.getEmail());
-                _usuario.setSenha(Usuario.encodeSenha(registro.getSenha()));
-                _usuario.setRole(registro.getRole());
+                _usuario.setSenha(registro.getSenha());
                 return new ResponseEntity<>(repository.save(_usuario), HttpStatus.CREATED);
             }
         } catch (Exception e) {
@@ -162,14 +147,11 @@ public class UsuarioController {
                 return new ResponseEntity<>(new ApiError("406", "Usuário já existente"), HttpStatus.NOT_ACCEPTABLE);
             } else if (repository.existsUsuarioByEmail(registro.getEmail())) {
                 return new ResponseEntity<>(new ApiError("406", "Email já existente"), HttpStatus.NOT_ACCEPTABLE);
-            } else if (!registro.getRole().hasThisName()) {
-                return new ResponseEntity<>(new ApiError("406", "Role inválida. Precisa ser 'ADMIN' ou 'USER'"), HttpStatus.NOT_ACCEPTABLE);
             } else {
                 Usuario _usuario = data.get();
                 _usuario.setUsuario(registro.getUsuario());
                 _usuario.setEmail(registro.getEmail());
-                _usuario.setSenha(Usuario.encodeSenha(registro.getSenha()));
-                _usuario.setRole(registro.getRole());
+                _usuario.setSenha(registro.getSenha());
                 return new ResponseEntity<>(repository.save(_usuario), HttpStatus.OK);
             }
         } else {

@@ -9,9 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -21,8 +19,6 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,7 +28,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/locadoras")
-@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Locadora", description = "API Locadora contendo todos os processos relacionado.")
 public class LocadoraController {
     @Autowired
@@ -46,7 +41,6 @@ public class LocadoraController {
 
     @GetMapping("/")
     @Operation(summary = "Listar Locadora")
-    @Secured("ROLE_USER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listagem de Locadoras"),
             @ApiResponse(responseCode = "403", description = "Não permitido a ação atual. Usuário não autenticado ou sem Permissão suficiente"),
@@ -66,7 +60,6 @@ public class LocadoraController {
     }
 
     @Operation(summary = "Pesquisar Locadora")
-    @Secured("ROLE_USER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pesquisa por um Locadora usando qualquer parâmetro"),
             @ApiResponse(responseCode = "403", description = "Não permitido a ação atual. Usuário não autenticado ou sem Permissão suficiente"),
@@ -141,8 +134,6 @@ public class LocadoraController {
                 return new ResponseEntity<>(new ApiError("406", "usuario já existente"), HttpStatus.NOT_ACCEPTABLE);
             } else if (usuarioRepository.existsUsuarioByEmail(registro.getUsuarioRegistro().getEmail())) {
                 return new ResponseEntity<>(new ApiError("406", "Email já existente"), HttpStatus.NOT_ACCEPTABLE);
-            } else if (!registro.getUsuarioRegistro().getRole().hasThisName()) {
-                return new ResponseEntity<>(new ApiError("406", "Role inválida. Precisa ser 'ADMIN' ou 'USER'"), HttpStatus.NOT_ACCEPTABLE);
             } else {
                 Locadora locadora = new Locadora();
                 Usuario usuario = new Usuario();
@@ -154,8 +145,8 @@ public class LocadoraController {
                 locadora.setComplemento(registro.getComplemento());
                 usuario.setUsuario(registro.getUsuarioRegistro().getUsuario());
                 usuario.setEmail(registro.getUsuarioRegistro().getEmail());
-                usuario.setSenha(Usuario.encodeSenha(registro.getUsuarioRegistro().getSenha()));
-                usuario.setRole(registro.getUsuarioRegistro().getRole());
+                usuario.setSenha(registro.getUsuarioRegistro().getSenha());
+//                usuario.setSenha(Usuario.encodeSenha(registro.getUsuarioRegistro().getSenha()));
                 locadora.setUsuario(usuario);
                 return new ResponseEntity<>(repository.save(locadora), HttpStatus.CREATED);
             }
@@ -165,7 +156,6 @@ public class LocadoraController {
     }
 
     @Operation(summary = "Alterar Locadora pelo ID")
-    @Secured("ROLE_USER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Locadora alterada", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = LocadoraAtualizacao.class))}),
             @ApiResponse(responseCode = "403", description = "Não permitido a ação atual. Usuário não autenticado ou sem Permissão suficiente"),
@@ -198,7 +188,6 @@ public class LocadoraController {
     }
 
     @Operation(summary = "Deletar Locadora por ID")
-    @Secured("ROLE_USER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Locadora deletada"),
             @ApiResponse(responseCode = "403", description = "Não permitido a ação atual. Usuário não autenticado ou sem Permissão suficiente"),
