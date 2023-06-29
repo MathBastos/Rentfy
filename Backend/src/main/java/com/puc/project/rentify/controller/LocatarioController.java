@@ -138,6 +138,7 @@ public class LocatarioController {
             } else {
                 Locatario locatario = new Locatario();
                 Usuario usuario = new Usuario();
+
                 locatario.setCpf(registro.getCpf());
                 locatario.setCelular(registro.getCelular());
                 locatario.setData_nascimento(registro.getData_nascimento());

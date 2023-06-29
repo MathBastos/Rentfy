@@ -13,35 +13,41 @@ function CadastroImovel() {
   const [numQuartos, setNumQuartos] = useState('');
   const [numBanheiros, setNumBanheiros] = useState('');
   const [garagem, setGaragem] = useState('nao');
-  const [tipo, setTipo] = useState('apartamento');
+  const [tipo, setTipo] = useState('');
+  const [descricao, setDescricao] = useState('');
   const [varanda, setVaranda] = useState('nao');
   const [imobiliado, setImobiliado] = useState('nao');
+  const [complemento, setComplemento] = useState('');
   const [valorReserva, setValorReserva] = useState('');
 
 
-  const cadastrarImovel = () => {
-    const novoImovel = {
-      cep,
-      numero,
-      numQuartos,
-      numBanheiros,
-      garagem,
-      tipo,
-      varanda,
-      imobiliado,
-      valorReserva,
-    };
 
-    axios
-      .post('http://localhost:8080/api/cadastroimoveis', novoImovel)
-      .then((response) => {
-        console.log(response.data);
+  const cadastrarImovel = async () => {
+    try{
+      const response = await axios.post('http://localhost:8080/api/cadastroimoveis', {
+        preco_dia: valorReserva,
+        tipo: tipo,
+        num_quartos: numQuartos,
+        num_banheiros: numBanheiros,
+        varanda: varanda,
+        garagem: garagem,
+        imobiliado: imobiliado,
+        descricao: descricao,
+        cep: cep,
+        numero: numero,
+        complemento: complemento,
+        locadora_id: 1,
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+      if (response.data.success) {
+        navigate('/component/Login.js');
 
+      } else {
+        console.log('Login failed');
+      }
+    } catch (error) {
+      console.log('Error occurred:', error);
+  };
+}
   return (
     <div className="CadastroImovel">
       <header className="CadastroImovel-header">
@@ -66,8 +72,6 @@ function CadastroImovel() {
                         className="rounded-input"
                         pattern="[0-9]{5}-?[0-9]{3}"
                         value={cep}
-                        onChange={handleCepChange}
-                        onBlur={handleCepBlur}
                       />
                     </div>
 
@@ -80,6 +84,18 @@ function CadastroImovel() {
                         className="rounded-input"
                         value={numero}
                         onChange={(e) => setNumero(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="complemento">complemento</label>
+                      <br />
+                      <input
+                        type="text"
+                        id="complemento"
+                        className="rounded-input"
+                        value={complemento}
+                        onChange={(e) => setComplemento(e.target.value)}
                       />
                     </div>
 
@@ -164,7 +180,19 @@ function CadastroImovel() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="valorReserva">Valor Reserva</label>
+                      <label htmlFor="descricao">descricao</label>
+                      <br />
+                      <input
+                        type="text"
+                        id="descricao"
+                        className="rounded-input"
+                        value={complemento}
+                        onChange={(e) => setDescricao(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="valorReserva">Valor Dia</label>
                       <br />
                       <input
                         type="number"

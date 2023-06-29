@@ -18,19 +18,20 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/authenticate/', {
+      const response = await axios.post('http://localhost:8080/api/auth', {
         usuario: usuario,
         senha: senha
       });
+      console.log(response.data);
 
       if (response.data.success) {
         if (usuario === 'admin' && senha === 'admin') {
-          navigate('/component/Admin.js');
+          navigate('Admin.js');
         } else {
           if (selectedButton === 'Locadora') {
-            navigate('/component/MainLocador.js');
+            navigate('MainLocador.js');
           } else if (selectedButton === 'Locatário') {
-            navigate('/component/MainLocatario.js');
+            navigate('MainLocatario.js');
           }
         }
       } else {

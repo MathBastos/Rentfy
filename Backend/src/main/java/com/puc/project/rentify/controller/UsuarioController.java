@@ -3,6 +3,7 @@ package com.puc.project.rentify.controller;
 import com.puc.project.rentify.model.ApiError;
 import com.puc.project.rentify.model.UsuarioRegistro;
 import com.puc.project.rentify.model.Usuario;
+import com.puc.project.rentify.model.Auth;
 import com.puc.project.rentify.repository.LocadoraRepository;
 import com.puc.project.rentify.repository.LocatarioRepository;
 import com.puc.project.rentify.repository.UsuarioRepository;
@@ -187,4 +188,27 @@ public class UsuarioController {
             return new ResponseEntity<Object>(new ApiError("500").toString(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @Operation(summary = "Autenticar usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário logado"),
+            @ApiResponse(responseCode = "404", description = "Usuario e/ou senha não encontrados"),
+    })
+    @PostMapping("auth")
+    public ResponseEntity<Usuario> findBy(@RequestBody Auth auth) {
+        try {
+            Usuario usuario = repository.findByUsuarioAndSenha(auth.getUsuario(), auth.getSenha());
+            return Optional
+                    .ofNullable(usuario)
+                    .map( user -> ResponseEntity.ok().body(user) )          //200 OK
+                    .orElseGet( () -> ResponseEntity.notFound().build() );  //404 Not found
+//            if (usuario != null) {
+//                return new ResponseEntity<>(null, new HttpHeaders(),  HttpStatus.OK);
+//            } else {
+//                return new ResponseEntity<>(new ApiError("404", "Usuario e/ou senha não encontrados"), HttpStatus.NOT_FOUND);
+//            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
+

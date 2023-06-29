@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ConsultaImovel() {
   const navigate = useNavigate();
-
+  const rows = [];
   const [mostrarResultados, setMostrarResultados] = useState(true);
   const [selectedRow, setSelectedRow] = useState(-1);
 
