@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/GerenciarImovel.css';
 import logo from '../img/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function GerenciarImovel() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const idImovel = new URLSearchParams(location.search).get('ID');
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [formData, setFormData] = useState({
@@ -14,12 +16,38 @@ function GerenciarImovel() {
     complemento: '',
     numQuartos: '',
     numBanheiros: '',
-    garagem: 'nao',
-    tipo: 'apartamento',
-    varanda: 'nao',
-    imobiliado: 'nao',
+    garagem: '',
+    tipo: '',
+    varanda: '',
+    imobiliado: '',
     valorReserva: ''
   });
+
+  useEffect(() => {
+    const fetchImovelData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/imoveis/search?ID=${idImovel}`);
+        const imovel = response.data[0];
+
+        setFormData({
+          cep: imovel.cep,
+          numero: imovel.numero,
+          complemento: imovel.complemento,
+          numQuartos: imovel.numQuartos,
+          numBanheiros: imovel.numBanheiros,
+          garagem: imovel.garagem,
+          tipo: imovel.tipo,
+          varanda: imovel.varanda,
+          imobiliado: imovel.imobiliado,
+          valorReserva: imovel.valorReserva
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchImovelData();
+  }, [idImovel]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -29,19 +57,24 @@ function GerenciarImovel() {
     }));
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm('Tem certeza que deseja deletar o imóvel?');
+
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:8080/api/imoveis/?id=${idImovel}`);
+        alert('Imóvel deletado com sucesso!');
+        navigate('/component/MainLocador.js');
+      } catch (error) {
+        console.error(error);
+        alert('Ocorreu um erro ao deletar o imóvel. Tente novamente mais tarde.');
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Send the form data to the Spring Boot backend
-    axios.post('http://localhost:8080/api/editarimovel', formData)
-      .then((response) => {
-        // Handle the response here (e.g., show success message)
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here (e.g., show error message)
-        console.error(error);
-      });
+    // Lógica para enviar os dados atualizados para a API
   };
 
   return (
@@ -68,6 +101,7 @@ function GerenciarImovel() {
                         className="rounded-input"
                         pattern="[0-9]{5}-?[0-9]{3}"
                         value={formData.cep}
+                        onChange={handleChange}
                       />
                     </div>
 
@@ -128,7 +162,8 @@ function GerenciarImovel() {
                         value={formData.garagem}
                         onChange={handleChange}
                       >
-                        {/* Options here */}
+                        <option>Sim</option>
+                        <option>Não</option>
                       </select>
                     </div>
 
@@ -141,7 +176,8 @@ function GerenciarImovel() {
                         value={formData.tipo}
                         onChange={handleChange}
                       >
-                        {/* Options here */}
+                        <option>Casa</option>
+                        <option>Apartamento</option>
                       </select>
                     </div>
 
@@ -154,7 +190,8 @@ function GerenciarImovel() {
                         value={formData.varanda}
                         onChange={handleChange}
                       >
-                        {/* Options here */}
+                        <option>Sim</option>
+                        <option>Não</option>
                       </select>
                     </div>
 
@@ -167,7 +204,8 @@ function GerenciarImovel() {
                         value={formData.imobiliado}
                         onChange={handleChange}
                       >
-                        {/* Options here */}
+                        <option>Sim</option>
+                        <option>Não</option>
                       </select>
                     </div>
 
@@ -182,8 +220,13 @@ function GerenciarImovel() {
                         onChange={handleChange}
                       />
                     </div>
-
-                    <button type="submit" className="btnAlterarImovel">Alterar Imóvel</button>
+                    <button type="submit" className="btnAlterarImovel">
+                      Alterar Imóvel
+                    </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button className="btnDeletarAdmin" onClick={handleDelete}>
+                      Deletar Imóvel
+                    </button>
                   </form>
                 </fieldset>
               </td>

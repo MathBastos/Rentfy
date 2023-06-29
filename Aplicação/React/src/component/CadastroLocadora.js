@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/CadastroLocadora.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 function CadastroLocadora() {
   const navigate = useNavigate();
@@ -68,13 +69,13 @@ function CadastroLocadora() {
                     <div className="form-group">
                       <label htmlFor="cnpj">CNPJ</label>
                       <br />
-                      <input type="text" id="cnpj" className="rounded-input" />
+                      <InputMask mask="99.999.999/9999-99" type="text" id="cnpj" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="cep">CEP</label>
                       <br />
-                      <input type="text" id="cep" className="rounded-input"/>
+                      <InputMask mask="99999-999" type="text" id="cep" className="rounded-input"/>
                     </div>
 
                     <div className="form-group">

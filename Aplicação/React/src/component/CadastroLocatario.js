@@ -4,6 +4,7 @@ import moment from 'moment';
 import '../css/CadastroLocatario.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 function CadastroLocatario() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ function CadastroLocatario() {
     const cpf = document.getElementById('cpf').value;
     const usuario = document.getElementById('usuario').value;
     const senha = document.getElementById('senha').value;
+
+    alert(`${cpf}\n${cep}`)
 
     axios
       .post('http://localhost:8080/api/locatarios/', {
@@ -75,7 +78,7 @@ function CadastroLocatario() {
                     <div className="form-group">
                       <label htmlFor="cep">CEP</label>
                       <br/>
-                      <input type="text" id="cep" className="rounded-input"/>
+                      <InputMask mask="99999-999" type="text" id="cep" className="rounded-input"/>
                     </div>
 
                     <div className="form-group">
@@ -99,13 +102,13 @@ function CadastroLocatario() {
                     <div className="form-group">
                       <label htmlFor="celular">Celular</label>
                       <br />
-                      <input type="tel" id="celular" className="rounded-input" />
+                      <InputMask mask="(99) 9 9999-9999" type="tel" id="celular" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="cpf">CPF</label>
                       <br />
-                      <input type="text" id="cpf" className="rounded-input" />
+                      <InputMask mask="999.999.999-99" type="text" id="cpf" className="rounded-input" />
                     </div>
 
                     <div className="form-group">

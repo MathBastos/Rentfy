@@ -1,46 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import '../css/EditarLocatario.css';
 import logo from '../img/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 function EditarLocatario() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const cpfEdit = new URLSearchParams(location.search).get('CPF');
+  const idUser = new URLSearchParams(location.search).get('ID');
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const [formData, setFormData] = useState({
-    nome: '',
-    dataNascimento: '',
+  const [locatarioData, setLocatarioData] = useState({
+    cpf: '',
+    celular: '',
+    data_nascimento: '',
     cep: '',
     numero: '',
-    email: '',
-    celular: '',
-    cpf: '',
-    usuario: '',
-    senha: ''
+    complemento: '',    
   });
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [id]: value
-    }));
-  };
+  useEffect(() => {
+    const fetchLocatarioData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/locatarios/search?cpf=${cpfEdit}`);
+        const locatario = response.data[0];
+
+        const dataNascimento = moment(locatario.data_nascimento, 'YYYY-MM-DD').format('YYYY-MM-DD');
+
+        setLocatarioData({ ...locatario, dataNascimento });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchLocatarioData();
+  }, [cpfEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Send the form data to the Spring Boot backend
-    axios.post('http://localhost:8080/api/editarlocatario', formData)
+    const formData = new FormData(e.target);
+    const updatedLocatarioData = {};
+  
+    for (let [key, value] of formData.entries()) {
+      if (key === "dataNascimento") {
+        value = moment(value).format('YYYY-MM-DD');
+      }
+      updatedLocatarioData[key] = value;
+    }
+    
+    const locatarioId = locatarioData.id;
+    updatedLocatarioData.usuario_id = idUser;
+  
+    axios
+      .put(`http://localhost:8080/api/locatarios/?id=${locatarioId}`, updatedLocatarioData)
       .then((response) => {
-        // Handle the response here (e.g., show success message)
         console.log(response.data);
+        alert('Locatário atualizado com sucesso!');
+        navigate('/component/Admin.js');
       })
       .catch((error) => {
-        // Handle errors here (e.g., show error message)
         console.error(error);
       });
+  };
+
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setLocatarioData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
   return (
@@ -57,116 +89,91 @@ function EditarLocatario() {
               <td>
                 <fieldset className="fieldset-custom">
                   <legend>Editar Locatário</legend>
-                  <form id="EditarLocatario" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                      <label htmlFor="nome">Nome</label>
-                      <br />
-                      <input
-                        type="text"
-                        id="nome"
-                        className="rounded-input"
-                        value={formData.nome}
-                        onChange={handleChange}
-                      />
-                    </div>
-
+                  <form id="cadastroLocatario" onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label htmlFor="dataNascimento">Data de Nascimento</label>
                       <br />
                       <input
                         type="date"
                         id="dataNascimento"
+                        name="data_nascimento" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.dataNascimento}
-                        onChange={handleChange}
+                        value={locatarioData.dataNascimento}
+                        onChange={handleInputChange}
                       />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="cep">CEP</label>
                       <br />
-                      <input
+                      <InputMask
+                        mask="99999-999"
                         type="text"
                         id="cep"
+                        name="cep" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.cep}
-                        onChange={handleChange}
+                        value={locatarioData.cep}
+                        onChange={handleInputChange}
                       />
                     </div>
-                    
+
                     <div className="form-group">
                       <label htmlFor="numero">Número</label>
                       <br />
                       <input
                         type="text"
                         id="numero"
+                        name="numero" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.numero}
-                        onChange={handleChange}
+                        value={locatarioData.numero}
+                        onChange={handleInputChange}
                       />
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="email">Email</label>
+                      <label htmlFor="complemento">Complemento</label>
                       <br />
                       <input
-                        type="email"
-                        id="email"
+                        type="text"
+                        id="complemento"
+                        name="complemento" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={locatarioData.complemento}
+                        onChange={handleInputChange}
                       />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="celular">Celular</label>
                       <br />
-                      <input
+                      <InputMask
+                        mask="(99) 9 9999-9999"
                         type="tel"
                         id="celular"
+                        name="celular" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.celular}
-                        onChange={handleChange}
+                        value={locatarioData.celular}
+                        onChange={handleInputChange}
                       />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="cpf">CPF</label>
                       <br />
-                      <input
+                      <InputMask
+                        mask="999.999.999-99"
                         type="text"
                         id="cpf"
+                        name="cpf" // Adicione o atributo 'name'
                         className="rounded-input"
-                        value={formData.cpf}
-                        onChange={handleChange}
+                        value={locatarioData.cpf}
+                        onChange={handleInputChange}
                       />
                     </div>
 
-                    <div className="form-group">
-                      <label htmlFor="usuario">Usuário</label>
-                      <br />
-                      <input
-                        type="text"
-                        id="usuario"
-                        className="rounded-input"
-                        value={formData.usuario}
-                        onChange={handleChange}
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="senha">Senha</label>
-                      <br />
-                      <input
-                        type="password"
-                        id="senha"
-                        className="rounded-input"
-                        value={formData.senha}
-                        onChange={handleChange}
-                      />
-                    </div>
-
-                    <button type="submit" className="btnCadastrarLocatario">Editar Locatário</button>
+                    <button type="submit" className="btnCadastrarLocatario">
+                      Cadastrar Locatário
+                    </button>
                   </form>
                 </fieldset>
               </td>

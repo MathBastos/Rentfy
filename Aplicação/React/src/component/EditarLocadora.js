@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/EditarLocadora.css';
 import logo from '../img/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function EditarLocadora() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const cnpjEdit = new URLSearchParams(location.search).get('CNPJ');
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [formData, setFormData] = useState({
@@ -28,19 +30,34 @@ function EditarLocadora() {
   };
 
   const handleSubmit = (e) => {
+    // Lógica para enviar os dados atualizados
     e.preventDefault();
-
-    // Send the form data to the Spring Boot backend
-    axios.post('http://localhost:8080/api/editarlocadora', formData)
-      .then((response) => {
-        // Handle the response here (e.g., show success message)
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here (e.g., show error message)
-        console.error(error);
-      });
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/locadoras/search?cnpj=${cnpjEdit}`);
+        const locadoraData = response.data;
+
+        setFormData({
+          nomeFantasia: locadoraData.nomeFantasia,
+          cnpj: locadoraData.cnpj,
+          cep: locadoraData.cep,
+          numero: locadoraData.numero,
+          email: locadoraData.email,
+          telefone: locadoraData.telefone,
+          usuario: locadoraData.usuario,
+          senha: locadoraData.senha
+        });
+      } catch (error) {
+        console.log(error);
+        // Tratar erros, exibir mensagem de erro, etc.
+      }
+    };
+
+    fetchData();
+  }, [cnpjEdit]);
 
   return (
     <div className="EditarLocadora">

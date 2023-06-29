@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../css/CadastroImovel.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 function CadastroImovel() {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ function CadastroImovel() {
                     <div className="form-group">
                       <label htmlFor="cep">CEP</label>
                       <br />
-                      <input
+                      <InputMask mask="99999-999"
                         type="text"
                         id="cep"
                         className="rounded-input"

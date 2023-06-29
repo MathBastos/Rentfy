@@ -48,6 +48,7 @@ function Login() {
       }
     } catch (error) {
       console.log('Error occurred:', error);
+      alert('Usuário ou senha incorretos');
     }
   };
 

@@ -23,7 +23,7 @@ function Admin() {
       const mergedData = mergeUsersData(locatariosData, locadorasData);
       setUsers(mergedData);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Erro ao buscar usuários:', error);
     }
   };
 
@@ -64,10 +64,13 @@ function Admin() {
   const handleEditarUsuario = () => {
     if (selectedRow !== null) {
       const tipoUsuario = users[selectedRow].tipo;
+      const outraId = users[selectedRow].outraId;
+      const cpfCnpj = tipoUsuario === 'Locatário' ? users[selectedRow].cpf : users[selectedRow].cnpj;
+
       if (tipoUsuario === 'Locadora') {
-        navigate('/component/EditarLocadora.js');
+        navigate(`/component/EditarLocadora.js?CNPJ=${cpfCnpj}&ID=${users[selectedRow].id}`);
       } else if (tipoUsuario === 'Locatário') {
-        navigate('/component/EditarLocatario.js');
+        navigate(`/component/EditarLocatario.js?CPF=${cpfCnpj}&ID=${users[selectedRow].id}`);
       }
     }
   };
@@ -76,10 +79,28 @@ function Admin() {
     if (selectedRow !== null) {
       const tipoUsuario = users[selectedRow].tipo;
       const outraId = users[selectedRow].outraId;
-      alert(`ID do Usuário: ${users[selectedRow].id}\nID do ${tipoUsuario}: ${outraId}`);
+      // alert(`ID do Usuário: ${users[selectedRow].id}\nID do ${tipoUsuario}: ${outraId}`);
       if (tipoUsuario === 'Locatário') {
-        axios.delete(`http://localhost:8080/api/locadoras/${outraId}`)
-          .then(response => {
+        axios
+          .delete(`http://localhost:8080/api/locatarios/?id=${outraId}`)
+          .then((response) => {
+            if (response.status === 200) {
+              alert('Locatário excluído com sucesso!');
+              removeUserFromTable(selectedRow);
+
+            } else {
+              console.log('Ocorreu um erro ao excluir o locatário.');
+            }
+          })
+          .catch((error) => {
+            console.error('Ocorreu um erro ao excluir o locatário:', error);
+          });
+      }
+
+      if (tipoUsuario === 'Locadora') {
+        axios
+          .delete(`http://localhost:8080/api/locadoras/?id=${outraId}`)
+          .then((response) => {
             if (response.status === 200) {
               console.log('Locadora excluída com sucesso!');
               removeUserFromTable(selectedRow);
@@ -87,53 +108,19 @@ function Admin() {
               console.log('Ocorreu um erro ao excluir a locadora.');
             }
           })
-          .catch(error => {
-            console.error('Ocorreu um erro ao excluir a locadora:', error);
-          });
-
-        axios.delete(`http://localhost:8080/api/usuarios/${users[selectedRow].id}`)
-          .then(response => {
-            if (response.status === 200) {
-              console.log('Usuário da Locadora excluído com sucesso!');
+          .catch((error) => {
+            if (error.response && error.response.status === 406) {
+              alert('Não é possível excluir a locadora pois ela possui imóveis cadastrados.');
             } else {
-              console.log('Ocorreu um erro ao excluir o usuário da Locadora.');
+              console.error('Ocorreu um erro ao excluir a locadora:', error);
             }
-          })
-          .catch(error => {
-            console.error('Ocorreu um erro ao excluir o usuário da Locadora:', error);
-          });
-      }
-      if (tipoUsuario === 'Locadora') {
-        axios.delete(`http://localhost:8080/api/locatarios/${outraId}`)
-          .then(response => {
-            if (response.status === 200) {
-              console.log('Locatário excluído com sucesso!');
-              removeUserFromTable(selectedRow);
-            } else {
-              console.log('Ocorreu um erro ao excluir o locatário.');
-            }
-          })
-          .catch(error => {
-            console.error('Ocorreu um erro ao excluir o locatário:', error);
-          });
-
-        axios.delete(`http://localhost:8080/api/usuarios/${users[selectedRow].id}`)
-          .then(response => {
-            if (response.status === 200) {
-              console.log('Usuário do Locatário excluído com sucesso!');
-            } else {
-              console.log('Ocorreu um erro ao excluir o usuário do locatário.');
-            }
-          })
-          .catch(error => {
-            console.error('Ocorreu um erro ao excluir o usuário do locatário:', error);
           });
       }
     }
   };
 
   const removeUserFromTable = (index) => {
-    setUsers(prevUsers => prevUsers.filter((user, idx) => idx !== index));
+    setUsers((prevUsers) => prevUsers.filter((user, idx) => idx !== index));
   };
 
   return (
@@ -174,7 +161,7 @@ function Admin() {
                             onClick={() => handleRowClick(index)}
                             style={{ backgroundColor: selectedRow === index ? 'lightblue' : '' }}
                           >
-                            <td>{user.id}</td>
+                            <td>{user.outraId}</td>
                             <td>{user.tipo}</td>
                             <td>{user.usuario}</td>
                             <td>{user.email}</td>
