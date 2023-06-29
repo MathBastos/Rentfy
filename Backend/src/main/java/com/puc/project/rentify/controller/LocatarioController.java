@@ -147,6 +147,7 @@ public class LocatarioController {
                 locatario.setComplemento(registro.getComplemento());
                 usuario.setUsuario(registro.getUsuarioRegistro().getUsuario());
                 usuario.setEmail(registro.getUsuarioRegistro().getEmail());
+                usuario.setSenha(registro.getUsuarioRegistro().getSenha());
 //                usuario.setSenha(Usuario.encodeSenha(registro.getUsuarioRegistro().getSenha()));
                 locatario.setUsuario(usuario);
                 return new ResponseEntity<>(repository.save(locatario), HttpStatus.CREATED);

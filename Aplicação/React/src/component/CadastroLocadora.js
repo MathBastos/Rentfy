@@ -20,7 +20,7 @@ function CadastroLocadora() {
 
     axios
       .post('http://localhost:8080/api/locadoras/', {
-        'nome_fantaria': nomeFantasia,
+        'nome_fantasia': nomeFantasia,
         'cnpj': cnpj,
         'telefone' : telefone,
         'cep' : cep,
@@ -35,7 +35,9 @@ function CadastroLocadora() {
       })
       .then((response) => {
         console.log(response.data);
-        navigate('/component/Login.js');
+        if (response.status === 201) {
+          navigate('/component/Login.js');
+        }
       })
       .catch((error) => {
         console.error(error);

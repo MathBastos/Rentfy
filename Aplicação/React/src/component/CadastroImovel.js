@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/CadastroImovel.css';
 import logo from '../img/logo.png';
@@ -19,12 +19,26 @@ function CadastroImovel() {
   const [imobiliado, setImobiliado] = useState('nao');
   const [complemento, setComplemento] = useState('');
   const [valorReserva, setValorReserva] = useState('');
+  const [locadoras, setLocadoras] = useState([]);
+  const [locadoraId, setLocadoraId] = useState('');
 
+  useEffect(() => {
+    fetchLocadoras();
+  }, []);
 
+  const fetchLocadoras = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/locadoras/');
+      setLocadoras(response.data);
+    } catch (error) {
+      console.log('Error occurred:', error);
+    }
+  };
 
   const cadastrarImovel = async () => {
-    try{
-      const response = await axios.post('http://localhost:8080/api/cadastroimoveis', {
+    alert(locadoraId)
+    try {
+      const response = await axios.post('http://localhost:8080/api/imoveis/', {
         preco_dia: valorReserva,
         tipo: tipo,
         num_quartos: numQuartos,
@@ -36,18 +50,19 @@ function CadastroImovel() {
         cep: cep,
         numero: numero,
         complemento: complemento,
-        locadora_id: 1,
-      })
-      if (response.data.success) {
-        navigate('/component/Login.js');
+        locadora_id: locadoraId,
+      });
 
+      if (response.status === 200) {
+        alert('Imóvel cadastrado com sucesso!');
       } else {
         console.log('Login failed');
       }
     } catch (error) {
       console.log('Error occurred:', error);
+    }
   };
-}
+
   return (
     <div className="CadastroImovel">
       <header className="CadastroImovel-header">
@@ -72,6 +87,7 @@ function CadastroImovel() {
                         className="rounded-input"
                         pattern="[0-9]{5}-?[0-9]{3}"
                         value={cep}
+                        onChange={(e) => setCep(e.target.value)}
                       />
                     </div>
 
@@ -88,7 +104,7 @@ function CadastroImovel() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="complemento">complemento</label>
+                      <label htmlFor="complemento">Complemento</label>
                       <br />
                       <input
                         type="text"
@@ -180,13 +196,13 @@ function CadastroImovel() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="descricao">descricao</label>
+                      <label htmlFor="descricao">Descrição</label>
                       <br />
                       <input
                         type="text"
                         id="descricao"
                         className="rounded-input"
-                        value={complemento}
+                        value={descricao}
                         onChange={(e) => setDescricao(e.target.value)}
                       />
                     </div>
@@ -201,6 +217,23 @@ function CadastroImovel() {
                         value={valorReserva}
                         onChange={(e) => setValorReserva(e.target.value)}
                       />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="locadora">Locadora</label>
+                      <br />
+                      <select
+                        id="locadora"
+                        className="rounded-input"
+                        value={locadoraId}
+                        onChange={(e) => setLocadoraId(e.target.value)}
+                      >
+                        {locadoras.map((locadora) => (
+                          <option key={locadora.id} value={locadora.id}>
+                            {locadora.nome_fantasia} ({locadora.id})
+                          </option>
+                        ))}
+                      </select>
                     </div>
 
                     <button type="submit" className="btnCadastrarImovel">

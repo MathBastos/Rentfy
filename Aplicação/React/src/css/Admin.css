@@ -164,6 +164,7 @@
     font-size: 20px;
   }
   
-  .fieldset-custom {
+  .fieldset-custom-admin {
     background-color: rgba(139, 138, 138, 0.364);
+    margin-left: 10px;
   }

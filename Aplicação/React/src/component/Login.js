@@ -16,23 +16,32 @@ function Login() {
     setSelectedButton(buttonName);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    if (usuario === 'admin' && senha === 'admin') {
+      alert(`Seja bem-vindo novamente Administrador`);
+      navigate('/component/Admin.js');
+    }
+
     try {
-      const response = await axios.post('http://localhost:8080/api/auth', {
+      const response = await axios.post('http://localhost:8080/api/usuarios/auth', {
         usuario: usuario,
         senha: senha
       });
-      console.log(response.data);
 
-      if (response.data.success) {
-        if (usuario === 'admin' && senha === 'admin') {
-          navigate('Admin.js');
+      if (response.status === 200) {
+        console.log(response.data);
+
+        if (response.status === 200) {
+            alert(`Seja bem-vindo novamente usuário '${usuario}'`);
+            if (selectedButton === 'Locadora') {
+              navigate('/component/MainLocador.js');
+            } else if (selectedButton === 'Locatário') {
+              navigate('/component/MainLocatario.js');
+            }
         } else {
-          if (selectedButton === 'Locadora') {
-            navigate('MainLocador.js');
-          } else if (selectedButton === 'Locatário') {
-            navigate('MainLocatario.js');
-          }
+          console.log('Login failed');
         }
       } else {
         console.log('Login failed');
@@ -73,9 +82,9 @@ function Login() {
                       Locatário
                     </button>
                   </div>
-                  <form id="Login">
+                  <form id="Login" onSubmit={handleLogin}>
                     <div>
-                      <label htmlFor="usuario">usuario:</label><br />
+                      <label htmlFor="usuario">Usuário:</label><br />
                       <input
                         className="rounded-input"
                         type="text"
@@ -85,7 +94,7 @@ function Login() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="senha">senha:</label><br />
+                      <label htmlFor="senha">Senha:</label><br />
                       <input
                         className="rounded-input"
                         type="password"
@@ -95,7 +104,7 @@ function Login() {
                       />
                     </div>
                     <div className="form-group">
-                      <button className="btnLogin" onClick={handleLogin}>Login</button>
+                      <button type="submit" className="btnLogin">Login</button>
                     </div>
                   </form>
                 </fieldset>

@@ -28,7 +28,7 @@ public class Usuario{
         @Column(unique=true, nullable = false)
         private String email;
         @JsonIgnore
-        @Column(unique=true, nullable = false)
+        @Column(unique=false, nullable = false)
         private String senha;
 }
 

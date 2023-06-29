@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import '../css/CadastroLocatario.css';
 import logo from '../img/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -9,37 +10,38 @@ function CadastroLocatario() {
 
   const cadastrarLocatario = () => {
     const nome = document.getElementById('nome').value;
-    const dataNascimento = document.getElementById('dataNascimento').value;
+    const dataNascimento = moment(document.getElementById('dataNascimento').value).format('YYYY-MM-DD');
     const cep = document.getElementById('cep').value;
     const numero = document.getElementById('numero').value;
     const email = document.getElementById('email').value;
+    const complemento = document.getElementById('complemento').value;
     const celular = document.getElementById('celular').value;
     const cpf = document.getElementById('cpf').value;
     const usuario = document.getElementById('usuario').value;
     const senha = document.getElementById('senha').value;
 
     axios
-      .post('http://localhost:8080/api/locatarios', {
-        nome,
-        dataNascimento,
-        cep,
-        numero,
-        email,
-        celular,
-        cpf,
-        usuario,
-        senha,
+      .post('http://localhost:8080/api/locatarios/', {
+        'cpf': cpf,
+        'celular': celular,
+        'data_nascimento': dataNascimento,
+        'cep': cep,
+        'numero': numero,
+        'complemento': complemento,
+        "usuarioRegistro": {
+          "usuario": usuario,
+          "email": email,
+          "senha": senha,
+          'role': 'USER'
+        }
       })
       .then((response) => {
         console.log(response.data);
         navigate('/component/Login.js');
-        // Handle success
-        // You can perform any actions here, such as showing a success message or navigating to a different page
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
-        // You can display an error message or perform any other error handling logic here
+        alert('Erro ao cadastrar locatário');
       });
   };
 
@@ -80,6 +82,12 @@ function CadastroLocatario() {
                       <label htmlFor="numero">Número</label>
                       <br />
                       <input type="text" id="numero" className="rounded-input" />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="numero">Complemento</label>
+                      <br />
+                      <input type="text" id="complemento" className="rounded-input" />
                     </div>
 
                     <div className="form-group">
