@@ -4,9 +4,9 @@ Desenvolvidos por Lucas Antonio, Lucas Silva Pinto e Matheus Henrique Bastos dur
 
 # Descrição do Projeto
 
-Projeto em desenvolvimento para a disciplina Experiência Criativa: Projetando Sistemas de Informação do curso Bacharelado em Sistemas de Informação. O Rentify é uma plataforma web desenvolvida para facilitar o processo de locação de Imóveis, apresentando os produtos de maneira simples e de facil localização.
+Projeto em desenvolvimento para a disciplina Experiência Criativa: Projetando Sistemas de Informação do curso Bacharelado em Sistemas de Informação. O VacanSee é uma plataforma web desenvolvida para facilitar o processo de reserva de Quartos de hoteis, apresentando os produtos de maneira simples e de facil localização.
 
-O sistema permite a pré reserva de imóveis disponibilizados por diversas locadoras. Com isso, possibilita o usuário de encontrar o imóvel ideal para suas necessidades.
+O sistema permite a reserva de quartos disponibilizados por diversos hoteis. Com isso, possibilita o usuário de encontrar o quarto ideal para suas necessidades.
 
 # 📁 Acesso ao projeto
 
@@ -21,7 +21,6 @@ Após baixar o projeto, para roda-lo localmente:
     
 # Tecnologias utilizadas
 
-    * React
-    * Spring
+    * PHP
     * Bootstrap
-    * Firebase
+    * JQuery
